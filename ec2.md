@@ -17,6 +17,7 @@ Note: If you stop your spot instance then you pay for an hr and if AWS stops it 
 Durability and Backup
 * Automatic replication in AZ
 * Snapshot backup to S3
+
 I/O Provisioning
 * Provision specific level of IOPS
 * Or Burstable level of IOPS
