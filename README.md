@@ -8,6 +8,7 @@ AWS Cert Exam Notes and Tips
 - [S3](s3.md#section)
 - [EC2](ec2.md#section)
 - [KMS](kms.md#section)
+- [Serverless](serverless.md#section)
 - [CICD](cicd.md#section)
 
 ## Generic
