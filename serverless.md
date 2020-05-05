@@ -34,3 +34,17 @@
 
 
 ### API Gateway
+
+- AWS API Gateway is a fully managed service that makes it easy for developers to publish, maintain, monitor, and secure APIs at any scale
+- API Gateway handles all of the tasks involved in accepting and processing up to hundreds of thousands of concurrent API calls, including traffic management, authorization and access control, monitoring, and API version management.
+- Supports Multiple backends
+  - AWS lambda
+  - Http endpoints exposed via Elastic BeanStalk, EC2 or ELB
+  - Other AWS services
+  - On-Prem http endpoints via public internet
+- Can create two kind of APIs
+  - Rest
+  - Websocket
+- Can deploy to Regional, Edge or private vpc
+- Can create as proxy resource means all the paths are valid
+
