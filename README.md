@@ -1,5 +1,8 @@
 # AWS Certification Notes
 
+* Great website for AWS exam notes - https://jayendrapatil.com/
+* Course I used - acloudguru and whizlab
+
 AWS Cert Exam Notes and Tips
 
 # AWS Developer Associate Curriculam 
@@ -9,6 +12,7 @@ AWS Cert Exam Notes and Tips
 - [EC2](ec2.md#section)
 - [KMS](kms.md#section)
 - [Serverless](serverless.md#section)
+- [ElasticBeanstalk](eb.md#section)
 - [CICD](cicd.md#section)
 
 ## Generic
