@@ -5,4 +5,9 @@ AWS Elastic Beanstalk is a higher level service which allows you to quickly depl
 
 ### Deployment Methods
 
-![Deployment Methods](images/db-deployment.png)
+![Deployment Methods](images/eb-deployment.png)
+
+### Customizing Elastic Beanstalk Env
+
+- You can customize eb env using Elastic Beanstalk configuration files e.g. to install packages, create linux user/groups, run shell commands etc.)
+- filename with ext of .config written in json/yaml format and must be present in <root>/.ebextensions folder.
