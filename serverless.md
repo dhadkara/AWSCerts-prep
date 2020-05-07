@@ -17,9 +17,11 @@
     - S3
     - EC2 lifecyle events
 - Limitations
-  - Concurrent Execution - 1000 (default) Across all the functions in a region
-    Note: If crosses concurrent execution and burst capacity then will get 429 error "Too many invocations"
-  - Funtion Timeout - 3sec(default) 1sec min - 900sec max
+  - Concurrent Execution 
+    - __1000 per sec__ (default) Across all the functions in a region
+    - If crosses concurrent execution and burst capacity then will get __429 error "Too many invocations__"
+    - Request concurrency guarantees that set of executions which always be available for critical function, also act as limit
+  - Funtion Timeout - __3sec(default)__ 1sec min - 900sec max
   - Memory Allocation - 128MB min - 3008MB max in 64MB increment
   - Temp Memory - /tmp folder 512MB
 - Versioning
@@ -27,11 +29,19 @@
   - Can link version to alias so that downstream applications doesn't need to change on new version
   
   #### Layers
-
   - Zip archive that contains libraries, custom runtime, or other dependencies.
   - Keep the package small 
   - Can use upto 5 layers
-
+  
+  #### Versions
+  - By default lambda has $LATEST as version and alias
+  - Can publish a version and also attach alias to it. Alias has its own ARN
+  - Application will not use new code with Alias on upload. If new version is published and you want to attach to same alias then needs to be done via lambda api.
+  
+  #### VPC aware lambda
+  - Lambda can be configure for private VPC to access other resources in VPC like EC2, Databases etc.
+  - To enable, provide VPC config with subnets (recommended multiple subnets) and security group with access permissions
+  - Lambda use VPC info to setup ENIs with ips __(Though it is changing and you dont need to use ENI anymore)__
 
 ### API Gateway
 
