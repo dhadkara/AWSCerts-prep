@@ -7,14 +7,20 @@
 - Event sources
   - Synchronous - Function response to events 
     - API Gateway 
-    - CloudWatch logs
     - Dynamodb/Kinesis Streams
-    - Cognitio
+    - Cognito
     - SQS
   - Asynchronous - Function doesn't wait for response. Set invocation-type as "Event"
-    Error Handling - Can retry upto 2 times and if failed then send message to DLQ - SNS or SQS. Also Max age of event message in uprocessed queue is 6hrs.
-    - SNS
+    Error Handling - Can retry upto __2 times__ and if failed then send message to DLQ - SNS or SQS. Also Max age of event message in uprocessed queue is __6hrs__.
     - S3
+    - SNS
+    - SES
+    - CloudFormation
+    - CloudWatch Logs
+    - CloudWatch Events
+    - CodeCommit
+    - Sceduled Events
+    - AWS config
     - EC2 lifecyle events
 - Limitations
   - Concurrent Execution 
@@ -42,6 +48,11 @@
   - Lambda can be configure for private VPC to access other resources in VPC like EC2, Databases etc.
   - To enable, provide VPC config with subnets (recommended multiple subnets) and security group with access permissions
   - Lambda use VPC info to setup ENIs with ips __(Though it is changing and you dont need to use ENI anymore)__
+
+  #### Lambda Edge
+  - Lambda@Edge allows running of code across AWS locations globally without provisioning or managing servers, responding to end users at the lowest network latency
+  - Lambda function can be configured to be triggered in response to CloudFront requests
+  - Lambda@Edge only supports __Node.js and Python__ for global invocation by CloudFront events at this time
 
 ### API Gateway
 
