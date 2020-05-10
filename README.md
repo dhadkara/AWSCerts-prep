@@ -15,6 +15,7 @@ AWS Cert Exam Notes and Tips
 - [ElasticBeanstalk](eb.md#section)
 - [ApplicationServices](application-services.md#section)
 - [CICD](cicd.md#section)
+- [Monitoring](monitoring.md#section)
 
 ## Generic
 
