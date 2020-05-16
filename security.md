@@ -25,3 +25,19 @@ aws kms enable-key-rotation --key-id YOURKEYIDHERE
 KMS Key ---encrypt--> Data Key(envelope key) --encrypts--> Data
 - Decrypt
 KMS Key(Master Key) --decrypt--> Encrypted Data Key --> Data Key --decrypt--> Data
+
+## Cognito
+
+- Provides web identity federation by acting as identity broker between your app and identity providers
+- Seamless across all the devices web as well mobile. Sync data across multiple devices
+
+![Web Identity Federation](images/CognitoDiagram.png)
+
+### User and Identity Pools
+
+__User Pools__ allow users to directly sign-in or indirectly via fb, google etc. via successfully generating JWT tokens works as identity broker.
+__Identity Pools__ enable to create unique identities to obtain temporary limited AWS service credentials.
+
+![Coginito Pools](images/cognito-pools.png)
+
+__Push Synchronization__ Cognito user Push Sync to send silent push notification of user data updates to multiple device type associated with user id. It levereges SNS internally.
