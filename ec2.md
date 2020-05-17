@@ -10,11 +10,14 @@ Note: If you stop your spot instance then you pay for an hr and if AWS stops it 
 3. Reserved - reserved is cheaper than on demand as it will have contract on these instances (linked to Instance Types)
 4. Dedicated Hosts - complete host is dedicated for your EC2 instances. Dedicated Hosts can save you money by enabling you to leverage your existing server-bound software license investments.  Dedicated Hosts also give you more flexibility, visibility, and control over the placement of instances on dedicated hardware. This makes it easier to ensure you deploy your instances in a way that meets your compliance and regulatory requirement
 
+### AMI
 1. Choose AMI
 
 ![Choose AMI](images/choose-ami.png)
 
-## EC2 Instance Types
+
+### EC2 Instance Types
+2. Choose Instance Type
 
 | __Type__ | __Family__  |
 |----------|-------------|
@@ -33,8 +36,14 @@ CPU Credit Balance is simply the amount of CPU Credit available in your account 
 
 When you create an instance you will get an initial CPU Credit. In every hour you will get certain amount of CPU credits automatically(this amount depends on the type of instance). If you don't burst the CPU performance the CPU Credit will be added to your CPU Credit Balance of your account. If you are out of CPU Credit(i.e. CPU Credit Balance turns into 0) your instance will work on baseline performance.
 
+3. Configure Instance
 
-## EBS (Elastic Block Storage)
+![Configure Instance](images/configure-instance.png)
+
+### EBS (Elastic Block Storage)
+4. Add Storage
+
+![Add Storage](images/add-storage.png)
 
 Durability and Backup
 * Automatic replication in AZ
@@ -44,8 +53,7 @@ I/O Provisioning
 * Provision specific level of IOPS
 * Or Burstable level of IOPS
 
-
-### Volume Types
+#### Volume Types
 
 1. SSD-General Purpose-gp2
 IOPS upto 10,000 -Moderate workloads frequent access
@@ -62,5 +70,12 @@ Not Bootable
 5. HDD, Magnetic - Standard (Previous generation)
 Bootable
 
+### Storage Types
 
+![Storage Types](images/storage-types.png)
+
+### Security Groups
+5. Configure Security Groups
+
+![Configure Security Groups](images/configure-sg.png)
 
