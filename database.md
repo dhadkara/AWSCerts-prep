@@ -109,6 +109,37 @@ __Local secondary index (LSI)__ are indexes that has the same partition key as t
 
 With Amazon DynamoDB transactions, you can group multiple actions together and submit them as a single all-or-nothing TransactWriteItems or TransactGetItems operation.
 
+## Amazon Redshift
 
+- Fast and powerful, fully managed petabyte scale data warehouse service in cloud.
+- OLAP - On Line Analytical Processing
+- Columnar Data Storage
+- Advance Compression -Columnar db can compress more because similar data is stored sequentially on disk
+- Only available in single AZ
+- __Encryption__ - At Rest AES-256 and in transit using SSL 
+
+Single Node (160GB)
+Multi Node 
+Leader Node -manage client connection and recieves queries
+Compute Node - store data, perform query for computation (upto 128 nodes)
+
+## Elasticache
+Easy to deploy, operate and scale in-memory cache in cloud.
+
+__Memcached__ - do not support multi AZ. Good choice if your db is read heavy and not prone to lot of changes
+__Redis__ - supports master/slave replication and multi AZ. saves data in key/value. Good choice if db feeling stress if mgmt keep running OLAP transactions on it.
+
+## Aurora
+
+Amazon aurora is MySQL compatible, relational db only runs on AWS infrastructure
+
+Scaling - Storage auto scaling - starts with 10GB in increment of 10GB to 64TB
+Compute resources can scale but during maintenances window
+2 copies of data in each AZ with min 3 AZ thus 6 copies of data
+Self healing as disks & data blocks are constantly scanned for errors and repaired automatically
+
+Replicas - 2 types
+Aurora replicas upto 15 - failover automatically happens
+MySQL Read Replicas upto 5 - no automatic failover	
 
 
