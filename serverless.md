@@ -69,3 +69,16 @@
 - Can deploy to Regional, Edge or private vpc
 - Can create as proxy resource means all the paths are valid
 
+### Athena
+
+- An interactive query service that makes it easy to analyze data directly on S3 using __Standard SQL__
+- It can query unstructed or structred data. 
+- It doesn't load data in compute and query directly on S3 thus serverless
+- OJBC and JDBC driverss to connect to standard SQL tools, analytics tools or business intellegence tools
+- Can easitly integrate to AWS Glue (ETL service) to create tables and schema.
+- Can query only latest version of bucket
+- Uncrypted S3 data can queried from different region via Athena. Though encrypted data needs to be in same region with appropriate perssioms to decrypt it via Athena
+- Athena doesn't support
+  - Different storage classes within a bucket
+  - GLACIER storage class
+  - Requesters pays bucket
