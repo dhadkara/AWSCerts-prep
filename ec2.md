@@ -74,8 +74,31 @@ Bootable
 
 ![Storage Types](images/storage-types.png)
 
+## EBS volumes and snapshots
+
+![Create Snapshot](images/create-snapshot.png)
+![Create Volume](images/create-volume.png)
+
 ### Security Groups
 5. Configure Security Groups
 
 ![Configure Security Groups](images/configure-sg.png)
 
+### ENI (Elastic Network Interface)
+
+Elastic Network Interfaces (ENIs) are virtual network interfaces that can be attached to the instances running in an VPC only
+
+ENI consists of the following
+- A primary private IP address.
+- One or more secondary private IP addresses
+- One Elastic IP address per private IP address.
+- One public IP address, which can be auto-assigned to the elastic network interface for eth0 when an instance is launched, but only when elastic network interface for eth0 is created instead of using an existing network interface.
+- One or more security groups. __Note: SG are attached to ENI not to instance itself__
+-  MAC address.
+- A source/destination check flag. Disabling this attribute enables an instance to handle network traffic that isn't specifically destined for the instance. For example, instances running services such as network address translation, routing, or a firewall should set this value to disabled. The default value is enabled.
+A description
+
+## ELB (Elastic Load Balancing)
+
+
+## ASG (Auto Scaling Group)
