@@ -129,6 +129,8 @@ Easy to deploy, operate and scale in-memory cache in cloud.
 __Memcached__ - do not support multi AZ. Good choice if your db is read heavy and not prone to lot of changes
 __Redis__ - supports master/slave replication and multi AZ. saves data in key/value. Good choice if db feeling stress if mgmt keep running OLAP transactions on it.
 
+![Memcache vs Redis](images/mem-redis.png)
+
 ## Aurora
 
 Amazon aurora is MySQL compatible, relational db only runs on AWS infrastructure
