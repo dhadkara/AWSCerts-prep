@@ -198,11 +198,61 @@ __Tip: Remember that annotations can be used for adding system or user-defined d
 - Creates Stack and if fails rollback automatically
 
 - CF template
-  - Parameters - input custom values
-  - Conditions - Env to deploy
-  - Resources - Mandatory* - create AWS resources
-  - Mappings - create custom mapping e.g. region:AMI
-  - Transforms - ref code located in S3 e.g. lambda code or reusable snippet of cf code
+  - __Parameters__ - input custom values.
+```
+ Parameters: 
+  InstanceTypeParameter: 
+    Type: String
+    Default: t2.micro
+    AllowedValues: 
+      - t2.micro
+      - m1.small
+      - m1.large
+    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+```
+  - __Conditions__ - Control the creation of resources based on a condition. Applied to resources and outputs.
+```
+Conditions: 
+  CreateProdResources: !Equals [ !Ref EnvType, prod ]
+```
+  - __Resources* ( Mandatory )__ - create AWS resources
+```
+  Resources:
+   MyEC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: "ami-0ff8a91507f77f867"
+```
+  - __Mappings__ - create custom mapping e.g. region:AMI. Need to know the values in advance.
+```
+  RegionMap: 
+    us-east-1:
+      HVM64: ami-0ff8a91507f77f867
+      HVMG2: ami-0a584ac55a7631c0c
+    us-west-1:
+      HVM64: ami-0bdb828fd58c52235
+      HVMG2: ami-066ee5fd4a9ef77f1
+```
+  - __Transforms__ - ref code located in S3 e.g. lambda code or reusable snippet of cf code
+```
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  MyServerlessFunctionLogicalID:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs8.10
+      CodeUri: 's3://testBucket/mySourceCode.zip'
+```
+  - __Outputs__ - output values that you can import into other stacks.or view on the AWS CloudFormation console
+```
+Outputs:
+  StackVPC:
+    Description: The ID of the VPC
+    Value: !Ref MyVPC
+    Export:
+      Name: !Sub "${AWS::StackName}-VPCID"
+```
 
 #### Cloudformation Nested Stacks
 
@@ -213,4 +263,108 @@ Resources:
  Type: AWS::CloudFormation::Stack
  Properties:
    TemplateUrl: https://s3.amazonaws.com/../template.yml
+```
+
+#### Intrinsic Functions
+
+__Ref__
+
+- Fn::Ref (or !Ref in YAML),
+- The intrinsic function Ref returns the value of the specified parameter or resource.
+```
+MyEIP:
+  Type: "AWS::EC2::EIP"
+  Properties:
+    InstanceId: !Ref MyEC2Instance
+```
+
+__Fn::GetAtt__
+
+- The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.
+- Full syntax (YAML): Fn::GetAtt: [ logicalNameOfResource, attributeName ]
+- Short form (YAML): !GetAtt logicalNameOfResource.attributeName
+
+```
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  myELB:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      AvailabilityZones:
+        - eu-west-1a
+      Listeners:
+        - LoadBalancerPort: '80'
+          InstancePort: '80'
+          Protocol: HTTP
+  myELBIngressGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: ELB ingress group
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          SourceSecurityGroupOwnerId: !GetAtt myELB.SourceSecurityGroup.OwnerAlias
+          SourceSecurityGroupName: !GetAtt myELB.SourceSecurityGroup.GroupName
+```
+
+__Fn::FindInMap__
+
+- The intrinsic function Fn::FindInMap returns the value corresponding to keys in a two-level map that is declared in the Mappings section.
+- Full syntax (YAML): Fn::FindInMap: [ MapName, TopLevelKey, SecondLevelKey ]
+- Short form (YAML): !FindInMap [ MapName, TopLevelKey, SecondLevelKey ]
+
+```
+Mappings: 
+  RegionMap: 
+    us-east-1: 
+      HVM64: "ami-0ff8a91507f77f867"
+      HVMG2: "ami-0a584ac55a7631c0c"
+    us-west-1: 
+      HVM64: "ami-0bdb828fd58c52235"
+      HVMG2: "ami-066ee5fd4a9ef77f1"
+Resources: 
+  myEC2Instance: 
+    Type: "AWS::EC2::Instance"
+    Properties: 
+      ImageId: !FindInMap
+        - RegionMap
+        - !Ref 'AWS::Region'
+        - HVM64
+      InstanceType: m1.small
+```
+
+__Fn::ImportValue__
+
+- The intrinsic function Fn::ImportValue returns the value of an output exported by another stack.
+- You typically use this function to create cross-stack references.
+
+```
+Fn::ImportValue:
+  !Sub "${NetworkStackName}-SecurityGroupID"
+```
+
+__Fn::Join__
+
+- Full syntax (YAML): Fn::Join: [ delimiter, [ comma-delimited list of values ] ]
+- Short form (YAML): !Join [ delimiter, [ comma-delimited list of values ] ]
+
+```
+!Join
+  - ''
+  - - 'arn:'
+    - !Ref Partition
+    - ':s3:::elasticbeanstalk-*-'
+    - !Ref 'AWS::AccountId'
+```
+
+__Fn::Sub__
+
+- The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify.
+- In your templates, you can use this function to construct commands or outputs that include values that aren’t available until you create or update a stack.
+
+```
+Name: !Sub
+  - www.${Domain}
+  - { Domain: !Ref RootDomainName }
 ```
