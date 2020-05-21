@@ -1,6 +1,8 @@
 # AWS Certification Notes
 
-* Great website for AWS exam notes - https://jayendrapatil.com/
+* Great websites for AWS exam notes 
+    - https://jayendrapatil.com/
+    - https://digitalcloud.training/certification-training/aws-developer-associate/
 * Course I used - acloudguru and whizlab
 
 AWS Cert Exam Notes and Tips

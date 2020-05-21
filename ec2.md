@@ -100,5 +100,31 @@ A description
 
 ## ELB (Elastic Load Balancing)
 
+Elastic Load Balancing automatically distributes incoming application traffic across multiple targets, such as Amazon EC2 instances, containers, and IP addresses.
+
+There are three types of Elastic Load Balancer (ELB) on AWS:
+- Classic Load Balancer (CLB) – this is the oldest of the three and provides basic load balancing at both layer 4 and layer 7.
+- Application Load Balancer (ALB) – layer 7 load balancer that routes connections based on the content of the request.
+- Network Load Balancer (NLB) – layer 4 load balancer that routes connections based on IP protocol data.
+
+![Load Balancers Types](images/load-balancers.png)
+
+- An ELB can distribute incoming traffic across your Amazon EC2 instances in a single Availability Zone or multiple Availability Zones. Only 1 subnet per AZ can be enabled for each ELB.
+- Route 53 can be used for region load balancing with ELB instances configured in each region.
+- ELBs can be Internet facing or internal-only.
+
 
 ## ASG (Auto Scaling Group)
+
+- Amazon EC2 Auto Scaling helps you ensure that you have the correct number of Amazon EC2 instances available to handle the load for your application.
+- You create collections of EC2 instances, called Auto Scaling groups.
+- Automatically provides horizontal scaling (scale-out) for your instances. Triggered by an event of scaling action to either launch or terminate instances.
+- Auto Scaling can span multiple AZs within the same AWS region.
+
+#### Scaling
+
+Scaling Policy
+![Scaling Policy](images/scaling-policy.png)
+
+- Can also scale based on an Amazon Simple Queue Service (SQS) queue. Can base off the SQS Metric “ApproximateNumberOfMessages”.
+- Cooldown Period: The cooldown period is a configurable setting for your Auto Scaling group that helps to ensure that it doesn’t launch or terminate additional instances before the previous scaling activity takes effect. The default value is 300 seconds.
