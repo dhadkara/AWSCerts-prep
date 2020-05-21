@@ -82,3 +82,69 @@
   - Different storage classes within a bucket
   - GLACIER storage class
   - Requesters pays bucket
+
+### ECS (Elastic Container Service)
+
+- Amazon Elastic Container Service (ECS) is a highly scalable, high-performance container management service that supports Docker containers and allows you to easily run applications on a managed cluster of Amazon EC2 instances.
+
+#### Launch Types
+
+There are two launch types
+
+![ECSLaunchTypes](images/ecs-launch-types.png)
+
+#### ECS Terminology
+
+![ECSTerminology](images/ecs-terminology.png)
+
+__Cluster__
+
+- ECS Clusters are a logical grouping of container instances that you can place tasks on.
+- ECS allows the definition of a specified number (desired count) of tasks to run in the cluster.
+- Clusters are region-specific.
+
+__ECS Container Instances__
+
+- The EC2 instances used as container hosts must run an ECS agent.
+- For non-AWS Linux instances to be used on AWS you must manually install the ECS container agent.The agent is configured in /etc/ecs/ecs.config.
+
+__Images__
+
+- Containers are created from a read-only template called an image which has the instructions for creating a Docker container.
+- Only Docker containers are currently supported on ECS.
+
+__Tasks and Task Definations__
+
+- A task definition is a text file in JSON format that describes one or more containers, up to a maximum of 10.
+- Some of the parameters you can specify in a task definition include:
+  - docker images
+  - CPU and Memory
+  - docker networking mode
+  - container port to host port
+  - env variables
+  - data Volumes 
+
+__Task Placement Strategy__
+
+Amazon ECS supports the following task placement strategies:
+- binpack – place tasks based on the least available amount of CPU or memory. This minimizes the number of instances in use.
+- random – place tasks randomly.
+- spread – place tasks evenly based on the specified value
+
+Amazon ECS supports the following types of task placement constraints:
+- distinctInstance – Place each task on a different container instance.
+- memberOf – Place tasks on container instances that satisfy an expression.
+
+__Service Scheduler__
+
+- Ensures that the specified number of tasks is constantly running and reschedules tasks when a task fails.
+- It can ensure tasks are registered against an ELB.
+
+#### Auto Scaling
+
+__Service Auto Scaling__ can optionally be configured to use Service Auto Scaling to adjust the desired task count up or down automatically.
+
+__Cluster Auto Scaling__ A Capacity Provider can be associated with an EC2 Auto Scaling Group (ASG).
+
+
+

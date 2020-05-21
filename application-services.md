@@ -31,3 +31,22 @@ __Large SQS Messages__
   - Use S3 to store data
   - Use Amazon SQS Extended Client library for Java to manage them
   - AWS SDK Java - provide API for S3 objects operations
+
+## SNS (Simple Notification Service)
+
+- Amazon SNS is a web service that is used to setup, operate and send notifications from the cloud.
+- SNS can also send notifications via SMS text message, email, SQS queues or to any HTTP endpoint. Or trigger Lambda functions
+- Pub-sub model whereby users subscribe to topics. Instantaneous, push-based delivery.
+- __SNS + SQS FAN OUT__ you can subscribe one or more Amazon SQS queues to an Amazon SNS topic from a list of topics available for the selected queue.
+
+## Step Functions
+
+- AWS Step Functions makes it easy to coordinate the components of distributed applications as a series of steps in a visual workflow.
+- You can quickly build and run state machines to execute the steps of your application in a reliable and scalable fashion.
+- How it works:
+  1. Define the steps of your workflow in the JSON-based Amazon States Language. The visual console automatically graphs each step in the order of execution.
+  2. Start an execution to visualize and verify the steps of your application are operating as intended. The console highlights the real-time status of each step and provides a detailed history of every execution.
+  3. AWS Step Functions operates and scales the steps of your application and underlying compute for you to help ensure your application executes reliably under increasing demand.
+
+
+
