@@ -13,6 +13,7 @@ AWS Cert Exam Notes and Tips
 - [S3](s3.md#section)
 - [EC2](ec2.md#section)
 - [VPC](vpc.md#section)
+- [Route53](route53.md#section)
 - [Database](database.md#section)
 - [Security](security.md#section)
 - [Serverless](serverless.md#section)
