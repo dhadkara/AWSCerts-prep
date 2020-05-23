@@ -21,6 +21,7 @@ AWS Cert Exam Notes and Tips
 - [ApplicationServices](application-services.md#section)
 - [CICD](cicd.md#section)
 - [Monitoring](monitoring.md#section)
+- [Kinesis](kinesis.md#section)
 
 ## Generic
 

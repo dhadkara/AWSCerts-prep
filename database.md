@@ -46,7 +46,7 @@ There are two types of read/write capacity modes:
     - DynamoDB must consume additional read capacity units for items greater than 1 KB for an 2 KB item size,  2 write capacity units would be required to sustain one write request per second or 4 write capacity units for a transactional write request
     - Item size is rounded off to 1 KB equivalents for e.g. a 0.5 KB or a 1 KB item would need the same WCU
 
-__Exponential Backoff__ comes in play when client application gets error then AWS SKD will retry in exponential manner e.g. 50ms, 100ms, 200ms ... for improved control flow. If after 1min still request fails then investiage RCU/WCU.
+__Exponential Backoff__ comes in play when client application gets error then AWS SDK will retry in exponential manner e.g. 50ms, 100ms, 200ms ... for improved control flow. If after 1min still request fails then investiage RCU/WCU.
 
 ### Dynamodb TTL
 
