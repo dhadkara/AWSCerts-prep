@@ -27,3 +27,4 @@ Network can be sub-divided into subnets inside an org. CIDR block convention to 
 Number of subnets be based on additional bits. If you need 4  means 2^2 bits=4
 If you need 8 means 2^3bits = 8 and so forth 
 
+Each subnet in VPC must be associated with a route table however multiple subnets can be associated to a single route table.

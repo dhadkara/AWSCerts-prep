@@ -73,6 +73,7 @@ Bootable
 ### Storage Types
 
 ![Storage Types](images/storage-types.png)
+- __Instance Store volume data will be lost even on stopping the EC2 instance__
 
 ## EBS volumes and snapshots
 
@@ -97,6 +98,17 @@ ENI consists of the following
 -  MAC address.
 - A source/destination check flag. Disabling this attribute enables an instance to handle network traffic that isn't specifically destined for the instance. For example, instances running services such as network address translation, routing, or a firewall should set this value to disabled. The default value is enabled.
 A description
+
+### Public vs Private vs Elastic IP addresses
+
+- Private IP address are within the scope of VPC for EC2 instances only.
+- Public IP address are public address to EC2 instances to connect it from outside of VPC network. But public ip are limited in number as IPv4. If you stop the machine public ip will be released and realloate new one once started.
+- Elastic IP comes in the play if you want your public ip to constant as other app might be using it. Means it is reserved till one releases it. Charged if you reserved the elastic ip but not using it as not attachment to machine or attached to stopped machine.
+
+__If you have released your Elastic IP address, you might be able to recover it. The following rules apply:__
+1. You cannot recover an Elastic IP address if it has been allocated to another AWS account, or if it will result in your exceeding your Elastic IP address limit.
+2. You cannot recover tags associated with an Elastic IP address.
+3. You can recover an Elastic IP address using the Amazon EC2 API or a command line tool only.
 
 ## ELB (Elastic Load Balancing)
 

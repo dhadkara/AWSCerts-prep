@@ -52,6 +52,7 @@ __Exponential Backoff__ comes in play when client application gets error then AW
 
 - TTL defines expiry time for your data. Expired item mark for deletion
 - Reduce cost by automatically deleting the data that is no longer valid
+- Can store any attribute name of your choice to store expiry timestamp
 
 ### Optimistic Concurrency Control
 
@@ -128,6 +129,11 @@ Easy to deploy, operate and scale in-memory cache in cloud.
 
 __Memcached__ - do not support multi AZ. Good choice if your db is read heavy and not prone to lot of changes
 __Redis__ - supports master/slave replication and multi AZ. saves data in key/value. Good choice if db feeling stress if mgmt keep running OLAP transactions on it.
+
+__ElastiCache as Session Store__
+Using the default provider, your ELB must send every request from a specific user to the same web server. This is known as sticky sessions and greatly limits your elasticity. First, the ELB cannot distribute traffic evenly, often sending a disproportionate amount of traffic to one server. Second, Auto Scaling cannot terminate web servers without losing some user’s session state.
+
+By moving the session state to a central location, all the web servers can share a single copy of session state. This allows the ELB to send requests to any web server, better distributing load across all the web servers. In addition, Auto Scaling can terminate individual web servers without losing session state information.
 
 ![Memcache vs Redis](images/mem-redis.png)
 
