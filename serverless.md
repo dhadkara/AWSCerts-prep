@@ -34,6 +34,10 @@
   - Can create lambda version by publishing new version - that create a new ARN 
   - Can link version to alias so that downstream applications doesn't need to change on new version
   
+  __Lambda with Kinesis__
+  - ou can use an AWS Lambda function to process records in an Amazon Kinesis data stream. With Kinesis, you can collect data from many sources and process them with multiple consumers.
+  - __If you have multiple applications that are reading records from the same stream, you can use Kinesis stream consumers instead of standard iterators. Consumers have dedicated read throughput so they don't have to compete with other consumers of the same data.__
+
   #### Layers
   - Zip archive that contains libraries, custom runtime, or other dependencies.
   - Keep the package small 
@@ -43,7 +47,32 @@
   - By default lambda has $LATEST as version and alias
   - Can publish a version and also attach alias to it. Alias has its own ARN
   - Application will not use new code with Alias on upload. If new version is published and you want to attach to same alias then needs to be done via lambda api.
-  
+  - __Publish Version__ Creates a version from the current code and configuration of a function. Use versions to create a snapshot of your function code and configuration that doesn't change.
+    - Request Syntax
+```
+POST /2015-03-31/functions/FunctionName/versions HTTP/1.1
+Content-type: application/json
+
+{
+   "CodeSha256": "string",
+   "Description": "string",
+   "RevisionId": "string"
+}
+```
+
+      - CodeSha256: Only publish a version if the hash value matches the value that's specified. 
+      - Description: A description for the version to override the description in the function configuration.
+      - RevisionId: Only update the function if the revision ID matches the ID that's specified. Use this option to avoid publishing a version if the function configuration has changed since you last updated it.
+
+    - Errors
+      - CodeStorageExceededException: You have exceeded your maximum total code size per account.
+      - InvalidParameterValueException: One of the parameters in the request is invalid.
+      - PreconditionFailedException: The RevisionId provided does not match the latest RevisionId for the Lambda function or alias. Call the GetFunction or the GetAlias API to retrieve the latest RevisionId for your resource.
+      - ResourceConflictException: The resource already exists, or another operation is in progress.
+      - ResourceNotFoundException: The resource specified in the request does not exist.
+      - ServiceException: The AWS Lambda service encountered an internal error.
+      - TooManyRequestsException: The request throughput limit was exceeded.
+
   #### VPC aware lambda
   - Lambda can be configure for private VPC to access other resources in VPC like EC2, Databases etc.
   - To enable, provide VPC config with subnets (recommended multiple subnets) and security group with access permissions
@@ -57,6 +86,32 @@
 ### SAM (Serverless Application Model)
 
 A serverless application is a combination of Lambda functions, event sources, and other resources that work together to perform tasks. Note that a serverless application is more than just a Lambda function—it can include additional resources such as APIs, databases, and event source mappings.
+
+#### AWS Lambda function metrics
+
+When your function finishes processing an event, Lambda sends metrics about the invocation to Amazon CloudWatch.
+
+__Using invocation metrics__ Invocation metrics are binary indicators of the outcome of an invocation.
+  - Invocations – The number of times your function code is executed, including successful executions and executions that result in a function error.
+  - Errors – The number of invocations that result in a function error. 
+  - DeadLetterErrors – For asynchronous invocation, the number of times Lambda attempts to send an event to a dead-letter queue but fails.
+  - DestinationDeliveryFailures – For asynchronous invocation, the number of times Lambda attempts to send an event to a destination but fails.
+  - Throttles – The number of invocation requests that are throttled. When all function instances are processing requests and no concurrency is available to scale up, Lambda rejects additional requests with TooManyRequestsException. 
+  - ProvisionedConcurrencyInvocations – The number of times your function code is executed on provisioned concurrency.
+  - ProvisionedConcurrencySpilloverInvocations – The number of times your function code is executed on standard concurrency when all provisioned concurrency is in use.
+
+__Performance metrics__ Performance metrics provide performance details about a single invocation. o get a sense of how fast your function processes events, view these metrics with the Average or Max statistic
+  - Duration – The amount of time that your function code spends processing an event.
+  - IteratorAge – For event source mappings that read from streams, the age of the last record in the event. The age is the amount of time between when the stream receives the record and when the event source mapping sends the event to the function
+
+__Concurrency metrics__ Lambda reports concurrency metrics as an aggregate count of the number of instances processing events across a function, version, alias, or AWS Region.
+  - ConcurrentExecutions – The number of function instances that are processing events. If this number reaches your concurrent executions limit for the Region, or the reserved concurrency limit that you configured on the function, additional invocation requests are throttled.
+  - ProvisionedConcurrentExecutions – The number of function instances that are processing events on provisioned concurrency. For each invocation of an alias or version with provisioned concurrency, Lambda emits the current count.
+  - ProvisionedConcurrencyUtilization – For a version or alias, the value of ProvisionedConcurrentExecutions divided by the total amount of provisioned concurrency allocated.
+  - UnreservedConcurrentExecutions – For an AWS Region, the number of events that are being processed by functions that don't have reserved concurrency.
+
+#### AWS Mobile SDK with Lambda
+You upload the code you want AWS Lambda to execute and then invoke it from your mobile app using the AWS Lambda SDK included in the AWS Mobile SDK. You can make both direct (synchronous) calls to retrieve or check data in real time as well as asynchronous calls. You can also define a custom API using Amazon API Gateway and invoke your Lambda functions through any REST compatible client.
 
 #### SAM Template Specifications
 

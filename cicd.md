@@ -39,6 +39,7 @@ commands:
 - echo Logging in to Amazon ECR...
 
 - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+
 build:
 
 commands:
@@ -62,47 +63,61 @@ commands:
 - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
  ```
 __Phases__:
-Install: install dependencies you may need for the build.
-Pre-build: final commands to execute before build.
-Build: actual build commands.
-Post build: finishing touches (e.g. zip file output).
-Artifacts: these get uploaded to S3 (encrypted with KMS).
+- Install: install dependencies you may need for the build.
+- Pre-build: final commands to execute before build.
+- Build: actual build commands.
+- Post build: finishing touches (e.g. zip file output).
+- Artifacts: these get uploaded to S3 (encrypted with KMS).
 
-
+You can override the default buildspec file name and location. For example, you can:
+- Use a different buildspec file for different builds in the same repository, such as buildspec_debug.yml and buildspec_release.yml.
+- Store a buildspec file somewhere other than the root of your source directory, such as config/buildspec.yml or in an S3 bucket. The S3 bucket must be in the same AWS Region as your build project. 
 
 #### Code Deploy
   Automates code deployments to any instance
   EC2 instances, on-premises instances, serverless Lambda functions, or Amazon ECS services
                   
   - Deployment Approaches 
-   1. For EC2/On-prem instances
-      : EC2 instances are identified by CodeDeploy by using tags or an Auto Scaling Group name.
+
+   1. For EC2/On-prem instances: EC2 instances are identified by CodeDeploy by using tags or an Auto Scaling Group name.
+     
     - In Place - Also called rolling update. Every instance will stop and install the update.
                  Rollback is to redeploy older version
     - Blue/Green - New instance are provisioned. Blue is current and Green is new release
                  Rollback to Blue instance. So you pay for 2 envs
+
    2. For AWS Lambda
+    
     - Used to deploy applications that consist of an updated version of a Lambda function.
+    
     - Can manage the way in which traffic is shifted to the updated Lambda function versions during a deployment by choosing a canary, linear, or all-at-once configuration
+
    3. ECS
+    
     - Used to deploy an Amazon ECS containerized application as a task set.
+    
     - CodeDeploy performs a blue/green deployment by installing an updated version of the application as a new replacement task set
+    
     - You can manage the way in which traffic is shifted to the updated task set during a deployment by choosing a canary, linear, or all-at-once configuration
     
     - For Amazon ECS and AWS Lambda there are three ways traffic can be shifted during a deployment:
+      
       - Canary: Traffic is shifted in two increments. You can choose from predefined canary options that specify the percentage of traffic shifted to your updated Amazon ECS task set / Lambda function in the first increment and the interval, in minutes, before the remaining traffic is shifted in the second increment.
       - Linear: Traffic is shifted in equal increments with an equal number of minutes between each increment. You can choose from predefined linear options that specify the percentage of traffic shifted in each increment and the number of minutes between each increment.
       - All-at-once: All traffic is shifted from the original Amazon ECS task set /  Lambda function to the updated Amazon ECS task set / Lambda function all at once.
+
     __Tip: AWS Lambda and Amazon ECS deployments cannot use an in-place deployment type__
 
-    __Deployment Group__
-     
+  __Deployment Group__
+
     Each deployment group belongs to one application and specifies:
     - A deployment configuration – a set of deployment rules as well as success / failure conditions used during a deployment.
+    - In an EC2/On-Premises deployment, a deployment group is a set of individual instances targeted for a deployment. A deployment group contains individually tagged instances, Amazon EC2 instances in Amazon EC2 Auto Scaling groups, or both.
     - Notifications configuration for deployment events.
     - Amazon CloudWatch alarms to monitor a deployment.
     - Deployment rollback configuration.
    
+  __Deployments__
    - Each Amazon EC2 instance must have the correct IAM instance profile attached.
    - The CodeDeploy agent must be installed and running on each instance.
   - appspec.yaml - File defines the deployment steps
@@ -111,53 +126,77 @@ Artifacts: these get uploaded to S3 (encrypted with KMS).
     - files - orgnized in folder like source, config, scripts etc.
     - hooks - lifecycle event hooks - have specific run order
     All of the above needs to be correct order and appspec.yaml needs to be root folder
+
+- Example of EC2/On-prem deployment appspec.yaml file
 ```
 version: 0.0
-
 os: linux
-
 files:
-
-- source: /
-
-destination: /var/www/html/WordPress
-
+  - source: /
+    destination: /var/www/html/WordPress
 hooks:
-
-BeforeInstall:
-
-- location: scripts/install_dependencies.sh
-
-timeout: 300
-
-runas: root
-
-AfterInstall:
-
-- location: scripts/change_permissions.sh
-
-timeout: 300
-
-runas: root
-
-ApplicationStart:
-
-- location: scripts/start_server.sh
-
-- location: scripts/create_test_db.sh
-
-timeout: 300
-
-runas: root
-
-ApplicationStop:
-
-- location: scripts/stop_server.sh
-
-timeout: 300
-
-runas: root
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: scripts/change_permissions.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/start_server.sh
+    - location: scripts/create_test_db.sh
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+      timeout: 300
+      runas: root
 ```
+- Example of an AppSpec file written in YAML for deploying an Amazon ECS service
+```
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:us-east-1:111222333444:task-definition/my-task-definition-family-name:1"
+        LoadBalancerInfo:
+          ContainerName: "SampleApplicationName"
+          ContainerPort: 80
+# Optional properties
+        PlatformVersion: "LATEST"
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            Subnets: ["subnet-1234abcd","subnet-5678abcd"]
+            SecurityGroups: ["sg-12345678"]
+            AssignPublicIp: "ENABLED"
+Hooks:
+  - BeforeInstall: "LambdaFunctionToValidateBeforeInstall"
+  - AfterInstall: "LambdaFunctionToValidateAfterTraffic"
+  - AfterAllowTestTraffic: "LambdaFunctionToValidateAfterTestTrafficStarts"
+  - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeAllowingProductionTraffic"
+  - AfterAllowTraffic: "LambdaFunctionToValidateAfterAllowingProductionTraffic"
+  ```
+  - Example of an AppSpec file written in YAML for deploying a Lambda function
+```
+version: 0.0
+Resources:
+  - myLambdaFunction:
+      Type: AWS::Lambda::Function
+      Properties:
+        Name: "myLambdaFunction"
+        Alias: "myLambdaFunctionAlias"
+        CurrentVersion: "1"
+        TargetVersion: "2"
+Hooks:
+  - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeTrafficShift"
+  - AfterAllowTraffic: "LambdaFunctionToValidateAfterTrafficShift"
+```
+__RollBack__
+- CodeDeploy rolls back deployments by redeploying a previously deployed revision of an application as a new deployment. 
+- Deployments can be rolled back automatically or manually.
+
 #### Code Pipeline 
    - Orchestrate the build, test and deployment as code changes
    - Automatically triggers pipeline on code changes
