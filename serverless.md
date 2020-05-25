@@ -10,7 +10,7 @@
     - Dynamodb/Kinesis Streams
     - Cognito
     - SQS
-  - Asynchronous - Function doesn't wait for response. Set invocation-type as "Event"
+  - Asynchronous - Function doesn't wait for response. Set invocation-type as "Event". 
     Error Handling - Can retry upto __2 times__ and if failed then send message to DLQ - SNS or SQS. Also Max age of event message in uprocessed queue is __6hrs__.
     - S3
     - SNS
@@ -28,7 +28,7 @@
     - If crosses concurrent execution and burst capacity then will get __429 error "Too many invocations__"
     - Request concurrency guarantees that set of executions which always be available for critical function, also act as limit
   - Funtion Timeout - __3sec(default)__ 1sec min - 900sec max
-  - Memory Allocation - 128MB min - 3008MB max in 64MB increment
+  - Memory Allocation - 128MB min - 3008MB (~3GB) max in 64MB increment
   - Temp Memory - /tmp folder 512MB
 - Versioning
   - Can create lambda version by publishing new version - that create a new ARN 
@@ -53,6 +53,26 @@
   - Lambda@Edge allows running of code across AWS locations globally without provisioning or managing servers, responding to end users at the lowest network latency
   - Lambda function can be configured to be triggered in response to CloudFront requests
   - Lambda@Edge only supports __Node.js and Python__ for global invocation by CloudFront events at this time
+
+### SAM (Serverless Application Model)
+
+A serverless application is a combination of Lambda functions, event sources, and other resources that work together to perform tasks. Note that a serverless application is more than just a Lambda function—it can include additional resources such as APIs, databases, and event source mappings.
+
+#### SAM commands
+
+```
+#Step 1 - Download a sample application
+sam init
+
+#Step 2 - Build your application
+cd sam-app
+sam build
+
+#Step 3 - Deploy your application
+sam deploy --guided
+
+```
+
 
 ### API Gateway
 
