@@ -89,6 +89,62 @@ sam deploy --guided
 - Can deploy to Regional, Edge or private vpc
 - Can create as proxy resource means all the paths are valid
 
+![Api Gateway Structure](images/api-gateway-structure.png)
+
+__Methods__ 
+- API Gateway Methods are HTTP methods associated with an API Gateway resource.
+- Each resource URL can have HTTP methods such as: GET, PUT, POST and DELETE.
+- AWS also offers the “ANY” method as a catch-all.
+
+__Deployments__
+- Deployments are a snapshot of the APIs resources and methods.
+- Deployments must be created and associated with a stage in order for anyone to access the API.
+- You can now use __canary release deployments__ to gradually roll out new APIs in Amazon API Gateway. This helps you more safely roll out API changes and limit the blast radius of new deployments. To deploy an API with a canary release, you create a canary release deployment by adding canary settings to the stage of a regular deployment.
+
+__Stage and Stage Variables__
+- Stage variables are like environment variables for API Gateway.
+- Use cases for stage variables:
+  - Configure HTTP endpoints your stages talk to (dev, test, prod etc.).
+  - Pass configuration parameters to AWS Lambda through mapping templates.
+- Stage variables are passed to the “context” object in Lambda.
+
+__Mapping Templates__
+- Mapping templates can be used to modify request / responses. Rename parameters. Modify body content. Add headers.
+- Uses Velocity Template Language (VTL).
+- Filter output results (remove unnecessary data).
+
+__Caching__
+- You can add caching to API calls by provisioning an Amazon API Gateway cache and specifying its size in gigabytes.
+- API Gateway caches responses for a specific amount of time (time to live or TTL). The default TTL is __300 seconds__ (min 0, max 3600).
+- You can encrypt caches.
+- The cache capacity is between 0.5GB to 237GB.
+- You are able to flush the entire cache (invalidate it) immediately if required. 
+- Clients can invalidate the cache with the header: __Cache-Control: max-age=0__ . If you don't impose an __InvalidateCache policy__ (or choose the __Require authorization__ check box in the console), any client can invalidate the API cache. If most or all of the clients invalidate the API cache, this could significantly increase the latency of your API.
+
+__Enable CORS support__
+
+1. Includes an Origin header.
+2. Uses the OPTIONS method.
+3. Includes the following headers:
+  - Access-Control-Request-Method
+  - Access-Control-Request-Headers
+
+__API Throttling__
+
+- Limits:
+  - By default API Gateway limits the steady-state request rate to __10,000 requests per second__.
+  - The maximum concurrent requests is 5,000 requests across all APIs within an AWS account.
+  - If you go over 10,000 requests per second or 5,000 concurrent requests you will receive a __429 Too Many Requests error response__.
+- Amazon API Gateway provides two basic types of throttling-related settings:
+  - Server-side throttling limits are applied across all clients. These limit settings exist to prevent your API—and your account—from being overwhelmed by too many requests.
+  - Per-client throttling limits are applied to clients that use API keys associated with your usage policy as a client identifier.
+
+#### Usage Plan and API Keys
+
+- A usage plan specifies who can access one or more deployed API stages and methods — and also how much and how fast they can access them.
+- The plan uses API keys to identify API clients and meters access to the associated API stages for each key.
+- It also lets you configure throttling limits and quota limits that are enforced on individual client API keys.
+
 ### Athena
 
 - An interactive query service that makes it easy to analyze data directly on S3 using __Standard SQL__
