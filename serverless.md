@@ -58,21 +58,140 @@
 
 A serverless application is a combination of Lambda functions, event sources, and other resources that work together to perform tasks. Note that a serverless application is more than just a Lambda function—it can include additional resources such as APIs, databases, and event source mappings.
 
+#### SAM Template Specifications
+
+__Globals__
+- Resources in an AWS SAM template tend to have shared configuration, such as Runtime, Memory, VPCConfig, Environment, and Cors. Instead of duplicating this information in every resource, you can write them once in the Globals section and let your resources inherit them.
+- The value specified in the Resources section replaces the value in the Globals section.
+
+```
+Globals:
+  Function:
+    Runtime: nodejs6.10
+    Timeout: 180
+    Handler: index.handler
+    Environment:
+      Variables:
+        TABLE_NAME: data-table
+
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Environment:
+        Variables:
+          MESSAGE: "Hello From SAM"
+
+  ThumbnailFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        Thumbnail:
+          Type: Api
+          Properties:
+            Path: /thumbnail
+            Method: POST
+```
+__Resources__
+
+| __Resources__ | __Details__  |
+|-------------------------------|--------------------------------|
+| AWS::Serverless::Api | Creates a collection of Amazon API Gateway resources and methods that can be invoked through HTTPS endpoints. |
+| AWS::Serverless::Application | mbeds a serverless application from the AWS Serverless Application Repository or from an Amazon S3 bucket as a nested application. |
+| AWS::Serverless::Function | Creates a Lambda function, IAM execution role, and event source mappings that trigger the function|
+| AWS::Serverless::HttpApi | Creates an API Gateway HTTP API, which enables you to create RESTful APIs with lower latency and lower costs than REST APIs |
+| AWS::Serverless::LayerVersion | Creates a Lambda LayerVersion that contains library or runtime code needed by a Lambda Function.|
+| AWS::Serverless::SimpleTable | Creates a DynamoDB table with a single attribute primary key. It is useful when data only needs to be accessed via a primary key.|
+
+
 #### SAM commands
 
 ```
-#Step 1 - Download a sample application
+# Download a sample application
 sam init
 
-#Step 2 - Build your application
+# Build your application
 cd sam-app
 sam build
 
-#Step 3 - Deploy your application
+# Invoking function with event file
+sam local invoke "Ratings" -e event.json
+
+# Running API Gateway Locally
+sam local start-api
+
+# Generating Sample Event Payloads
+sam local generate-event [SERVICE]
+
+#Deploy your application
 sam deploy --guided
 
 ```
 
+#### Deploying
+
+If you want AWS SAM to guide you through the deployment with prompts, specify the --guided flag. When you specify this flag, the sam deploy command zips your application artifacts, uploads them to Amazon Simple Storage Service (Amazon S3), and deploys your application to the AWS Cloud.
+
+```
+# Deploy an application using prompts:
+sam deploy --guided
+```
+
+__Deploying Gradually__
+
+If you use AWS SAM to create your serverless application, it comes built-in with CodeDeploy to provide gradual Lambda deployments. With just a few lines of configuration, AWS SAM does the following for you:
+  - Deploys new versions of your Lambda function, and automatically creates aliases that point to the new version.
+  - Gradually shifts customer traffic to the new version until you're satisfied that it's working as expected, or you roll back the update.
+  - Defines pre-traffic and post-traffic test functions to verify that the newly deployed code is configured correctly and your application operates as expected.
+  - Rolls back the deployment if CloudWatch alarms are triggered.
+
+```
+Resources:
+ MyLambdaFunction:
+   Type: AWS::Serverless::Function
+   Properties:
+     Handler: index.handler
+     Runtime: nodejs4.3
+     CodeUri: s3://bucket/code.zip
+
+     AutoPublishAlias: live
+
+     DeploymentPreference:
+       Type: Canary10Percent10Minutes 
+       Alarms:
+         # A list of alarms that you want to monitor
+         - !Ref AliasErrorMetricGreaterThanZeroAlarm
+         - !Ref LatestVersionErrorMetricGreaterThanZeroAlarm
+       Hooks:
+         # Validation Lambda functions that are run before & after traffic shifting
+         PreTraffic: !Ref PreTrafficLambdaFunction
+         PostTraffic: !Ref PostTrafficLambdaFunction
+```
+
+__AutoPublishAlias:__ By adding this property and specifying an alias name, AWS SAM:
+  - Detects when new code is being deployed, based on changes to the Lambda function's Amazon S3 URI.
+  - Creates and publishes an updated version of that function with the latest code.
+  - Creates an alias with a name that you provide (unless an alias already exists), and points to the updated version of the Lambda function. 
+
+__Deployment Preference Type:__ 
+  - Canary: Traffic is shifted in two increments. You can choose from predefined canary options. The options specify the percentage of traffic that's shifted to your updated Lambda function version in the first increment, and the interval, in minutes, before the remaining traffic is shifted in the second increment. 
+    - Canary10Percent30Minutes
+    - Canary10Percent5Minutes
+    - Canary10Percent10Minutes
+    - Canary10Percent15Minutes
+  - Linear: Traffic is shifted in equal increments with an equal number of minutes between each increment. You can choose from predefined linear options that specify the percentage of traffic that's shifted in each increment and the number of minutes between each increment.
+    - Linear10PercentEvery10Minutes
+    - Linear10PercentEvery1Minute
+    - Linear10PercentEvery2Minutes
+    - Linear10PercentEvery3Minutes
+  - All-at-once: All traffic is shifted from the original Lambda function to the updated Lambda function version at once.
+    - AllAtOnce
+
+__Alarms:__ These are CloudWatch alarms that are triggered by any errors raised by the deployment. They automatically roll back your deployment.
+
+__Hooks:__ These are pre-traffic and post-traffic test functions that run sanity checks before traffic shifting starts to the new version, and after traffic shifting completes.
+  - PreTraffic: Before traffic shifting starts, CodeDeploy invokes the pre-traffic hook Lambda function. This Lambda function must call back to CodeDeploy and indicate success or failure. If the function fails, it aborts and reports a failure back to AWS CloudFormation. If the function succeeds, CodeDeploy proceeds to traffic shifting.
+  - PostTraffic: After traffic shifting completes, CodeDeploy invokes the post-traffic hook Lambda function. This is similar to the pre-traffic hook, where the function must call back to CodeDeploy to report a success or failure. Use post-traffic hooks to run integration tests or other validation actions.
 
 ### API Gateway
 

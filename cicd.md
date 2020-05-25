@@ -111,8 +111,8 @@ Artifacts: these get uploaded to S3 (encrypted with KMS).
     - files - orgnized in folder like source, config, scripts etc.
     - hooks - lifecycle event hooks - have specific run order
     All of the above needs to be correct order and appspec.yaml needs to be root folder
-    ```
-    version: 0.0
+```
+version: 0.0
 
 os: linux
 
@@ -157,7 +157,7 @@ ApplicationStop:
 timeout: 300
 
 runas: root
-    ```
+```
 #### Code Pipeline 
    - Orchestrate the build, test and deployment as code changes
    - Automatically triggers pipeline on code changes
