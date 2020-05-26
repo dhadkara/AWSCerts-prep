@@ -31,6 +31,16 @@ Spread across 3 geographically distinct data center (not AZs or Regions)
 
 Eventual consistency of data by default. Can do strong consistency as well
 
+__Limits__
+- max tables per region __256__
+- size of item collection __10 GB__ max. his limit does not apply to __tables without local secondary indexes__. DynamoDB returns an *ItemCollectionSizeLimitExceededException*, and you won't be able to add more items
+- Reserved capacity purchaes in block of 100 RCUs or/ 100 WCUs
+- The maximum item size in DynamoDB is __400 KB__. The cumulative size of attributes per item must fit within the maximum DynamoDB item size (400 KB) as such there is no limit for no. of attributes.
+
+__Dynamodb APIs__
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.API.html#HowItWorks.API.Transactions
+
 __Throughput Capacity__
 
 There are two types of read/write capacity modes:
@@ -78,6 +88,7 @@ __Local secondary index (LSI)__ are indexes that has the same partition key as t
 | Read Consistency  | Queries on global secondary indexes support eventual consistency only | When you query a local secondary index, you can choose either eventual consistency or strong consistency  |
 |   Provisioned Throughput |    Every global secondary index has its own provisioned throughput settings for read and write activity. Queries or scans on a global secondary index consume capacity units from the index, not from the base table. The same holds true for global secondary index updates due to table writes   |   Queries or scans on a local secondary index consume read capacity units from the base table. When you write to a table, its local secondary indexes are also updated; these updates consume write capacity units from the base table    |
 |   Projected Attributes    |   With global secondary index queries or scans, you can only request the attributes that are projected into the index. DynamoDB will not fetch any attributes from the table  |   If you query or scan a local secondary index, you can request attributes that are not projected in to the index. DynamoDB will automatically fetch those attributes from the table  |
+| Default Limits | 20 per table | 5 per table |
 
 ### Global Tables 
 

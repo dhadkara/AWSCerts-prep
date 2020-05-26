@@ -40,6 +40,8 @@ __Large SQS Messages__
 - SNS can also send notifications via SMS text message, email, SQS queues or to any HTTP endpoint. Or trigger Lambda functions
 - Pub-sub model whereby users subscribe to topics. Instantaneous, push-based delivery.
 - __SNS + SQS FAN OUT__ you can subscribe one or more Amazon SQS queues to an Amazon SNS topic from a list of topics available for the selected queue.
+- Topic names are limited to __256 charcters__
+- Subscriber request will be pending for max __3 days__
 - SNS retry policies - Amazon SNS defines a delivery policy for each delivery protocol. The delivery policy defines how Amazon SNS retries the delivery of messages when server-side errors occur. When the delivery policy is exhausted, Amazon SNS stops retrying the delivery and discards the message—unless a dead-letter queue is attached to the subscription
 
 | __Endpoint type__ |	__Delivery protocols__ |	__Immediate retry (no delay) phase__ |	__Pre-backoff phase	Backoff phase__ |	__Post-backoff phase__ |	__Total attempts__ |

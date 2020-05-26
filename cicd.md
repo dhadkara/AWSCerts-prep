@@ -237,6 +237,7 @@ __Tip: Remember that annotations can be used for adding system or user-defined d
 - Creates Stack and if fails rollback automatically
 
 - CF template
+  - __AWSTemplateFormatVersion__ section *(optional)* identifies the capabilities of the template. The latest template format version is 2010-09-09 and is currently the only valid value.
   - __Parameters__ - input custom values.
 ```
  Parameters: 
@@ -303,8 +304,16 @@ Resources:
  Properties:
    TemplateUrl: https://s3.amazonaws.com/../template.yml
 ```
+#### CF APIs
+
+- Creating a Stack - create-stack
+- Desc & listing Stack - list-stacks & describe-stacks
+- Listing Resources - list-stack-resources
+- Deleting a Stack - delete-stack
 
 #### Intrinsic Functions
+
+__Note:__ You can use intrinsic functions only in specific parts of a template. Currently, you can use intrinsic functions in resource properties, outputs, metadata attributes, and update policy attributes. You can also use intrinsic functions to conditionally create stack resources.
 
 __Ref__
 
