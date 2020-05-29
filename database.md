@@ -8,7 +8,7 @@ Eventual consistency of data by default. Can do strong consistency as well
 
 __Limits__
 - max tables per region __256__
-- size of item collection __10 GB__ max. his limit does not apply to __tables without local secondary indexes__. DynamoDB returns an *ItemCollectionSizeLimitExceededException*, and you won't be able to add more items
+- size of item collection __10 GB__ max. This limit does not apply to __tables without local secondary indexes__. DynamoDB returns an *ItemCollectionSizeLimitExceededException*, and you won't be able to add more items
 - Reserved capacity purchaes in block of 100 RCUs or/ 100 WCUs
 - The maximum item size in DynamoDB is __400 KB__. The cumulative size of attributes per item must fit within the maximum DynamoDB item size (400 KB) as such there is no limit for no. of attributes.
 
@@ -80,7 +80,7 @@ When creating a new table, you can choose one of the following customer master k
 - AWS managed CMK – The key is stored in your account and is managed by AWS KMS (AWS KMS charges apply).
 - Customer managed CMK – The key is stored in your account and is created, owned, and managed by you. You have full control over the CMK (AWS KMS charges apply).
 
-- DynamoDB uses the CMK for the table to generate and encrypt a unique data key for the table, known as the table key.
+- DynamoDB uses the CMK for the table to generate and encrypt a unique data key for the table, known as the __table key__.
 - __Client Side Encryption__ In addition to encryption at rest, which is a server-side encryption feature, AWS provides the Amazon DynamoDB Encryption Client. This client-side encryption library enables you to protect your table data before submitting it to DynamoDB. With server-side encryption, your data is encrypted in transit over an HTTPS connection, decrypted at the DynamoDB endpoint, and then re-encrypted before being stored in DynamoDB. Client-side encryption provides end-to-end protection for your data from its source to storage in DynamoDB.
 
 ### Global Tables 

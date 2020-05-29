@@ -30,5 +30,13 @@ Logs Groups will keep the logs data __indefinately__ unless you change it. You c
 
 -----------------------
 ## CloudTrail
+- CloudTrail provides visibility into user activity by recording actions taken on your account. API history enables security analysis, resource change tracking, and compliance auditing.
+- CloudTrail records account activity and service events from most AWS services and logs the following records:
+  - The identity of the API caller.
+  - The time of the API call.
+  - The source IP address of the API caller.
+  - The request parameters.
+  - The response elements returned by the AWS service.
+- CloudTrail is enabled on your AWS account when you create it.
 
-## AWS Config
+------------------------
