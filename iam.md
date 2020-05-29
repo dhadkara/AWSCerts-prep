@@ -24,8 +24,9 @@
   1. Trust Policy - who can assume role
   2. Permission Policy - what they can access
 
-- IAM Best Practice – Use roles for applications running on EC2 instances
-- IAM Best Practice – Delegate using roles instead of sharing credentials
+- Use roles for applications running on EC2 instances
+- Delegate using roles instead of sharing credentials
+- To assume a role, an application calls the __AWS STS AssumeRole__ API operation and passes the ARN of the role to use. The operation creates a new session with temporary credentials. This session has the same permissions as the identity-based policies for that role.
 
 __Role Types__
 

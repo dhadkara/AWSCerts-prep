@@ -124,6 +124,7 @@ There are three types of Elastic Load Balancer (ELB) on AWS:
 - An ELB can distribute incoming traffic across your Amazon EC2 instances in a single Availability Zone or multiple Availability Zones. Only 1 subnet per AZ can be enabled for each ELB.
 - Route 53 can be used for region load balancing with ELB instances configured in each region.
 - ELBs can be Internet facing or internal-only.
+- Elastic Load Balancing provides __access logs__ that capture detailed information about requests sent to your load balancer. Each log contains information such as the time the request was received, the client's IP address, latencies, request paths, and server responses. You can use these access logs to analyze traffic patterns and troubleshoot issues.
 
 
 ## ASG (Auto Scaling Group)

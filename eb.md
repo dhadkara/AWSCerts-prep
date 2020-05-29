@@ -28,3 +28,9 @@ AWS Elastic Beanstalk is a higher level service which allows you to quickly depl
 - To upgrade new version, upload new zip from console
 - UI for rollback based on code version
 - Can upload code from local machine or a public S3 bucket. __If want to use code commit then can only use EB CLI__
+
+### Custom Platforms
+
+AWS Elastic Beanstalk supports custom platforms. A custom platform is a more advanced customization than a custom image in several ways. A custom platform lets you develop an entire new platform from scratch, customizing the operating system, additional software, and scripts that Elastic Beanstalk runs on platform instances.
+
+You create your own Elastic Beanstalk platform using __Packer__, which is an open-source tool for creating machine images for many platforms, including AMIs for use with Amazon Elastic Compute Cloud (Amazon EC2)

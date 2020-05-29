@@ -40,6 +40,8 @@ When you encrypt your data, your data is protected, but you have to protect your
 
 AWS KMS helps you to protect your master keys by storing and managing them securely. Master keys stored in AWS KMS, known as customer master keys (CMKs), never leave the AWS KMS FIPS validated hardware security modules unencrypted.
 
+Thus data is encrypted using plain text data key. The data key further encrypted using a plaintext master key. 
+
 - Encrypt
 KMS Key ---encrypt--> Data Key(envelope key) --encrypts--> Data
 - Decrypt
@@ -63,6 +65,7 @@ To make data key caching easier to implement, the AWS Encryption SDK provides __
 
 You can schedule a customer master key and associated metadata that you created in AWS KMS for deletion, with a configurable waiting period from __7 to 30 days(default)__.
 
+------------------------
 ## Cognito
 
 - Provides web identity federation by acting as identity broker between your app and identity providers
@@ -78,3 +81,5 @@ __Identity Pools__ enable to create unique identities to obtain temporary limite
 ![Coginito Pools](images/cognito-pools.png)
 
 __Push Synchronization__ Cognito user Push Sync to send silent push notification of user data updates to multiple device type associated with user id. It levereges SNS internally.
+
+__Amazon Cognito Streams__ gives developers control and insight into their data stored in Amazon Cognito. Developers can now configure a Kinesis stream to receive events as data is updated and synchronized. Amazon Cognito can push each dataset change to a Kinesis stream you own in real time.

@@ -69,6 +69,16 @@ __Phases__:
 - Post build: finishing touches (e.g. zip file output).
 - Artifacts: these get uploaded to S3 (encrypted with KMS).
 
+__Run a build__
+- if you want to run a build that uses the latest version of the build input artifact and the build project's existing settings.
+  ```
+  aws codebuild start-build --project-name project-name
+  ```
+- if you want to run a build with an earlier version of the build input artifact or if you want to override the settings for the build output artifacts, environment variables, buildspec, or default build timeout period.
+  ```
+  aws codebuild start-build --generate-cli-skeleton
+  ```
+
 You can override the default buildspec file name and location. For example, you can:
 - Use a different buildspec file for different builds in the same repository, such as buildspec_debug.yml and buildspec_release.yml.
 - Store a buildspec file somewhere other than the root of your source directory, such as config/buildspec.yml or in an S3 bucket. The S3 bucket must be in the same AWS Region as your build project. 
@@ -203,6 +213,7 @@ __RollBack__
    - Integrate with AWS like code build,code deploy, cloudformation, ECS,Elastic Beanstalk & 3rd party tools    like jenkins, github 
    - Artifacts: Artifacts are passed, stored in Amazon S3 and then passed on to the next stage.
    - Stages: Stage examples would be build, test, deploy, load test etc. Each stage can have sequential actions and or parallel actions.
+   - __Retry__ If an action (or a set of parallel actions) is not completed successfully, the action fails. You can use the CLI or console to manually retry the failed action before the stage completes (while other actions are still in progress). If a stage completes with one or more failed actions, the stage fails, and the pipeline execution does not transition to the next stage in the pipeline. You can retry the latest failed actions in a stage without having to run a pipeline again from the beginning.
 
 ### X-Ray
 

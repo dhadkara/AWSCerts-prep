@@ -28,6 +28,7 @@ Logs Groups will keep the logs data __indefinately__ unless you change it. You c
   __ALARM__—The metric is outside of the defined threshold
   __INSUFFICIENT_DATA__—Alarm has just started, the metric is not available, or not enough data is available for the metric to determine the alarm state
 
+-----------------------
 ## CloudTrail
 
 ## AWS Config

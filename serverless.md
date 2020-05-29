@@ -4,7 +4,7 @@
 
 - AWS lambda lets you run your code without provisioning/managing servers. Only upload a code and it will run based on event triggers
 - Languages supported by AWS Lambda - Node, Go, Java, Python, C# , Ruby, and PowerShell
-- Event sources
+- __Event sources__
   - Synchronous - Function response to events 
     - API Gateway 
     - Dynamodb/Kinesis Streams
@@ -22,17 +22,14 @@
     - Sceduled Events
     - AWS config
     - EC2 lifecyle events
-- Limitations
+- __Limitations__
   - Concurrent Execution 
     - __1000 per sec__ (default) Across all the functions in a region
     - If crosses concurrent execution and burst capacity then will get __429 error "Too many invocations__"
     - Request concurrency guarantees that set of executions which always be available for critical function, also act as limit
   - Funtion Timeout - __3sec(default)__ 1sec min - 900sec max
   - Memory Allocation - 128MB min - 3008MB (~3GB) max in 64MB increment
-  - Temp Memory - /tmp folder 512MB
-- Versioning
-  - Can create lambda version by publishing new version - that create a new ARN 
-  - Can link version to alias so that downstream applications doesn't need to change on new version
+  - Temp Memory - /tmp folder 512MB  
   
   __Lambda with Kinesis__
   - ou can use an AWS Lambda function to process records in an Amazon Kinesis data stream. With Kinesis, you can collect data from many sources and process them with multiple consumers.
@@ -44,9 +41,6 @@
   - Can use upto 5 layers
   
   #### Versions
-  - By default lambda has $LATEST as version and alias
-  - Can publish a version and also attach alias to it. Alias has its own ARN
-  - Application will not use new code with Alias on upload. If new version is published and you want to attach to same alias then needs to be done via lambda api.
   - __Publish Version__ Creates a version from the current code and configuration of a function. Use versions to create a snapshot of your function code and configuration that doesn't change.
     - Request Syntax
 ```
@@ -72,10 +66,36 @@ Content-type: application/json
       - ResourceNotFoundException: The resource specified in the request does not exist.
       - ServiceException: The AWS Lambda service encountered an internal error.
       - TooManyRequestsException: The request throughput limit was exceeded.
+  - Can create lambda version by publishing new version - that create a new ARN 
+  - By default lambda has $LATEST as version and alias
+  - You reference your Lambda function using its ARN. There are two ARNs associated with this initial version:
+    - Qualified ARN – The function ARN with the version suffix.
+      - *arn:aws:lambda:aws-region:acct-id:function:helloworld:$LATEST*
+    - Unqualified ARN – The function ARN without the version suffix.
+      - *arn:aws:lambda:aws-region:acct-id:function:helloworld*
+      - You can use this unqualified ARN in all relevant operations. However, you can't use it to create an alias.
+  - __Aliases__ A Lambda alias is like a pointer to a specific Lambda function version. Users can access the function version using the alias ARN.
+  - Can link version to alias so that downstream applications doesn't need to change on new version
+  - To create an alias, use the *create-alias* command. 
+  - To change an alias to point a new version of the function, use the *update-alias* command. Application will not use new code with Alias on upload. If new version is published and you want to attach to same alias then needs to be done via lambda api only not via console.
+  
+  #### Environment variables
+  - You can use environment variables to store secrets securely and adjust your function's behavior without updating code. An environment variable is a pair of strings that are stored in a function's version-specific configuration.
+  - Lambda can encrypts environment variables with a key that it creates in your account (an AWS managed customer master key (CMK)). Use of this key is free. You can also choose to provide your own key (KMS) for Lambda to use instead of the default key.
+
+  #### Best Practices
+  - Separate the Lambda handler from your core logic.
+  - Take advantage of execution context reuse to improve the performance of your function. Initialize SDK clients and database connections outside of the function handler
+  - Use environment variables to pass operational parameters to your function
+  - Control the dependencies in your function's deployment package
+  - Minimize your deployment package size to its runtime necessities
+  - Reduce the time it takes Lambda to unpack deployment packages authored in Java by putting your dependency .jar files in a separate /lib directory. This is faster than putting all your function’s code in a single jar
+  - Minimize the complexity of your dependencies. Prefer simpler frameworks that load quickly on execution context startup
+  - Avoid using recursive code
 
   #### VPC aware lambda
   - Lambda can be configure for private VPC to access other resources in VPC like EC2, Databases etc.
-  - To enable, provide VPC config with subnets (recommended multiple subnets) and security group with access permissions
+  - To enable, provide VPC config with __subnets (recommended multiple subnets) and security group__ with access permissions
   - Lambda use VPC info to setup ENIs with ips __(Though it is changing and you dont need to use ENI anymore)__
 
   #### Lambda Edge
@@ -83,6 +103,7 @@ Content-type: application/json
   - Lambda function can be configured to be triggered in response to CloudFront requests
   - Lambda@Edge only supports __Node.js and Python__ for global invocation by CloudFront events at this time
 
+-------------
 ### SAM (Serverless Application Model)
 
 A serverless application is a combination of Lambda functions, event sources, and other resources that work together to perform tasks. Note that a serverless application is more than just a Lambda function—it can include additional resources such as APIs, databases, and event source mappings.
@@ -248,6 +269,7 @@ __Hooks:__ These are pre-traffic and post-traffic test functions that run sanity
   - PreTraffic: Before traffic shifting starts, CodeDeploy invokes the pre-traffic hook Lambda function. This Lambda function must call back to CodeDeploy and indicate success or failure. If the function fails, it aborts and reports a failure back to AWS CloudFormation. If the function succeeds, CodeDeploy proceeds to traffic shifting.
   - PostTraffic: After traffic shifting completes, CodeDeploy invokes the post-traffic hook Lambda function. This is similar to the pre-traffic hook, where the function must call back to CodeDeploy to report a success or failure. Use post-traffic hooks to run integration tests or other validation actions.
 
+----------------------
 ### API Gateway
 
 - AWS API Gateway is a fully managed service that makes it easy for developers to publish, maintain, monitor, and secure APIs at any scale
@@ -281,6 +303,13 @@ __Stage and Stage Variables__
   - Configure HTTP endpoints your stages talk to (dev, test, prod etc.).
   - Pass configuration parameters to AWS Lambda through mapping templates.
 - Stage variables are passed to the “context” object in Lambda.
+
+A stage variable can be used as part of an HTTP integration URL, as shown in the following examples:
+ - A full URI without protocol – http://${stageVariables.<variable_name>}
+ - A full domain – http://${stageVariables.<variable_name>}/resource/operation
+ - A subdomain – http://${stageVariables.<variable_name>}.example.com/resource/operation
+ - A path – http://example.com/${stageVariables.<variable_name>}/bar
+ - A query string – http://example.com/foo?q=${stageVariables.<variable_name>}
 
 __Mapping Templates__
 - Mapping templates can be used to modify request / responses. Rename parameters. Modify body content. Add headers.
@@ -333,6 +362,7 @@ __API Throttling__
   - GLACIER storage class
   - Requesters pays bucket
 
+----------------------
 ### ECS (Elastic Container Service)
 
 - Amazon Elastic Container Service (ECS) is a highly scalable, high-performance container management service that supports Docker containers and allows you to easily run applications on a managed cluster of Amazon EC2 instances.
@@ -396,5 +426,5 @@ __Service Auto Scaling__ can optionally be configured to use Service Auto Scalin
 
 __Cluster Auto Scaling__ A Capacity Provider can be associated with an EC2 Auto Scaling Group (ASG).
 
-
+---------------------
 

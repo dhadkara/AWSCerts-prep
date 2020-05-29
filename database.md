@@ -1,28 +1,3 @@
-## RDS
-
-__Supports__ : Amazon Aurora, MySQL, SQL Server, Maria DB, PostgreSQL, Oracle
-
-__Automated backups__ 
-  - Allows to recover db any point in time within retention period - 1min -35max and default 7days
-  - Takes full daily snapshot (mostly when low IOPS time in night) and transaction logs throughout the day. To retain data takes a latest snapshot and apply transaction logs on it
-  - Enabled by default- backup stored in S3
-
-__Snapshots__
-  - User initiated (limit 50 per region)
-  - Remain even after RDS instance delete, unlike automated backups
-  - Migrate Snapshot- to different database. E.g. MySQL to Aurora
-  - Copy Snapshot- to different region
-  - Restore Snapshot - can change the db instance class (to improve performance)
-
-__Encryption__
-  - At rest supported - using KMS - backups, snapshots & read replicas also encrypted
-  - No encryption for existing instance - create a new encrypted db and migrated data to it
-  - Cross region replicas and snapshots copy does not work for encrypted snapshot since the key is only available in a single region
-
-__Multi AZs__  sync the data between another instance of RDS on another AZ for DR - can automatically failover to backup
-
-__Read Replica__ for performance improvement(scaling) - Async replica of RDS instance and can read from read replicas. Can point individual EC2 app servers to read from replicas for read heavy operations
-
 ## Dynamodb
 
 NoSQL db - stored on SSD storage
@@ -90,6 +65,24 @@ __Local secondary index (LSI)__ are indexes that has the same partition key as t
 |   Projected Attributes    |   With global secondary index queries or scans, you can only request the attributes that are projected into the index. DynamoDB will not fetch any attributes from the table  |   If you query or scan a local secondary index, you can request attributes that are not projected in to the index. DynamoDB will automatically fetch those attributes from the table  |
 | Default Limits | 20 per table | 5 per table |
 
+### Query and Scan
+- Performance Considerations for Scans
+  - If possible, you should avoid using a Scan operation on a large table or index with a filter that removes many results
+  - Instead of using a large Scan operation, you can use the following techniques to minimize the impact of a scan
+    - Reduce page size
+    - Isolate scan operations (Use shadow table)
+  - Parallel Scans - processes a large table of historical data can perform a parallel scan much faster than a sequential one. Although parallel scans can be beneficial, they can place a heavy demand on provisioned throughput.
+
+### Encryption
+
+When creating a new table, you can choose one of the following customer master keys (CMK) to encrypt your table:
+- AWS owned CMK – Default encryption type. The key is owned by DynamoDB (no additional charge).
+- AWS managed CMK – The key is stored in your account and is managed by AWS KMS (AWS KMS charges apply).
+- Customer managed CMK – The key is stored in your account and is created, owned, and managed by you. You have full control over the CMK (AWS KMS charges apply).
+
+- DynamoDB uses the CMK for the table to generate and encrypt a unique data key for the table, known as the table key.
+- __Client Side Encryption__ In addition to encryption at rest, which is a server-side encryption feature, AWS provides the Amazon DynamoDB Encryption Client. This client-side encryption library enables you to protect your table data before submitting it to DynamoDB. With server-side encryption, your data is encrypted in transit over an HTTPS connection, decrypted at the DynamoDB endpoint, and then re-encrypted before being stored in DynamoDB. Client-side encryption provides end-to-end protection for your data from its source to storage in DynamoDB.
+
 ### Global Tables 
 
 - DynamoDB Global Tables is a new multi-master, cross-region replication capability of DynamoDB to support data access locality and regional fault tolerance for database workloads.
@@ -121,6 +114,36 @@ __Local secondary index (LSI)__ are indexes that has the same partition key as t
 
 With Amazon DynamoDB transactions, you can group multiple actions together and submit them as a single all-or-nothing TransactWriteItems or TransactGetItems operation.
 
+-------------
+## Elasticache
+Easy to deploy, operate and scale in-memory cache in cloud.
+
+__Memcached__ - do not support multi AZ. Good choice if your db is read heavy and not prone to lot of changes
+
+__Redis__ - supports master/slave replication and multi AZ. saves data in key/value. Good choice if db feeling stress if mgmt keep running OLAP transactions on it.
+
+__ElastiCache as Session Store__
+Using the default provider, your ELB must send every request from a specific user to the same web server. This is known as sticky sessions and greatly limits your elasticity. First, the ELB cannot distribute traffic evenly, often sending a disproportionate amount of traffic to one server. Second, Auto Scaling cannot terminate web servers without losing some user’s session state.
+
+By moving the session state to a central location, all the web servers can share a single copy of session state. This allows the ELB to send requests to any web server, better distributing load across all the web servers. In addition, Auto Scaling can terminate individual web servers without losing session state information.
+
+![Memcache vs Redis](images/mem-redis.png)
+
+| __Feature__ | __Memcached__ | __Redis__ | 
+|-------------|------------|------------|
+| Data persistence | No | Yes |
+| Advanced data structures | No | Yes |
+| Multithreaded architecture | Yes | No |
+| Encryption | No | Yes |
+| Replication | No | Yes |
+| PubSub | No | Yes |
+
+__Redis Use Cases__
+- Gaming Leaderboards (Redis Sorted Sets)
+- Messaging (Redis Pub/Sub)
+- Recommendation Data (Redis Hashes)
+
+----------------
 ## Amazon Redshift
 
 - Fast and powerful, fully managed petabyte scale data warehouse service in cloud.
@@ -135,19 +158,33 @@ Multi Node
 Leader Node -manage client connection and recieves queries
 Compute Node - store data, perform query for computation (upto 128 nodes)
 
-## Elasticache
-Easy to deploy, operate and scale in-memory cache in cloud.
+-------------
+## RDS
 
-__Memcached__ - do not support multi AZ. Good choice if your db is read heavy and not prone to lot of changes
-__Redis__ - supports master/slave replication and multi AZ. saves data in key/value. Good choice if db feeling stress if mgmt keep running OLAP transactions on it.
+__Supports__ : Amazon Aurora, MySQL, SQL Server, Maria DB, PostgreSQL, Oracle
 
-__ElastiCache as Session Store__
-Using the default provider, your ELB must send every request from a specific user to the same web server. This is known as sticky sessions and greatly limits your elasticity. First, the ELB cannot distribute traffic evenly, often sending a disproportionate amount of traffic to one server. Second, Auto Scaling cannot terminate web servers without losing some user’s session state.
+__Automated backups__ 
+  - Allows to recover db any point in time within retention period - 1min -35max and default 7days
+  - Takes full daily snapshot (mostly when low IOPS time in night) and transaction logs throughout the day. To retain data takes a latest snapshot and apply transaction logs on it
+  - Enabled by default- backup stored in S3
 
-By moving the session state to a central location, all the web servers can share a single copy of session state. This allows the ELB to send requests to any web server, better distributing load across all the web servers. In addition, Auto Scaling can terminate individual web servers without losing session state information.
+__Snapshots__
+  - User initiated (limit 50 per region)
+  - Remain even after RDS instance delete, unlike automated backups
+  - Migrate Snapshot- to different database. E.g. MySQL to Aurora
+  - Copy Snapshot- to different region
+  - Restore Snapshot - can change the db instance class (to improve performance)
 
-![Memcache vs Redis](images/mem-redis.png)
+__Encryption__
+  - At rest supported - using KMS - backups, snapshots & read replicas also encrypted
+  - No encryption for existing instance - create a new encrypted db and migrated data to it
+  - Cross region replicas and snapshots copy does not work for encrypted snapshot since the key is only available in a single region
 
+__Multi AZs__  sync the data between another instance of RDS on another AZ for DR - can automatically failover to backup
+
+__Read Replica__ for performance improvement(scaling) - Async replica of RDS instance and can read from read replicas. Can point individual EC2 app servers to read from replicas for read heavy operations
+
+--------------------
 ## Aurora
 
 Amazon aurora is MySQL compatible, relational db only runs on AWS infrastructure
@@ -161,4 +198,4 @@ Replicas - 2 types
 Aurora replicas upto 15 - failover automatically happens
 MySQL Read Replicas upto 5 - no automatic failover	
 
-
+-----------------
