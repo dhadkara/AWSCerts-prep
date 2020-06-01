@@ -145,6 +145,10 @@ files:
   - source: /
     destination: /var/www/html/WordPress
 hooks:
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+      timeout: 300
+      runas: root
   BeforeInstall:
     - location: scripts/install_dependencies.sh
       timeout: 300
@@ -158,10 +162,12 @@ hooks:
     - location: scripts/create_test_db.sh
       timeout: 300
       runas: root
-  ApplicationStop:
-    - location: scripts/stop_server.sh
+  ValidateService:
+    - location: scripts/valiate_service.sh
+    - location: scripts/test_service.sh
       timeout: 300
       runas: root
+
 ```
 - Example of an AppSpec file written in YAML for deploying an Amazon ECS service
 ```

@@ -78,6 +78,7 @@ Content-type: application/json
   - Can link version to alias so that downstream applications doesn't need to change on new version
   - To create an alias, use the *create-alias* command. 
   - To change an alias to point a new version of the function, use the *update-alias* command. Application will not use new code with Alias on upload. If new version is published and you want to attach to same alias then needs to be done via lambda api only not via console.
+  - Use __alias routing configuration__ on an alias to send a portion of traffic to a second function version. Use the *create-alias* and *update-alias* commands to configure the traffic weights between two function versions. When you create or update the alias, you specify the traffic weight in the __routing-config__ parameter.
   
   #### Environment variables
   - You can use environment variables to store secrets securely and adjust your function's behavior without updating code. An environment variable is a pair of strings that are stored in a function's version-specific configuration.

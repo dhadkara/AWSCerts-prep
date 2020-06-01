@@ -15,6 +15,7 @@ __Kinesis Data Streams__
   - Two types of resharding operations
     - In a __shard split__, you divide a single shard into two shards.
     - In a __shard merge__, you combine two shards into a single shard.
+- __Server-side encryption__ is a feature in Amazon Kinesis Data Streams that automatically encrypts data before it's at rest by using an AWS KMS customer master key (CMK) you specify.
 
 __Kinesis Data Firehose__
 

@@ -7,10 +7,16 @@ AWS Elastic Beanstalk is a higher level service which allows you to quickly depl
 
 ![Deployment Methods](images/eb-deployment.png)
 
+- __Application Version Lifecycle Policy__ Each time you upload a new version of your application with the Elastic Beanstalk console or the EB CLI, Elastic Beanstalk creates an application version.You can avoid hitting the quota by applying an application version lifecycle policy to your applications.
+- __Application source bundle__ 
+  - When you use the AWS Elastic Beanstalk console to deploy a new application or an application version, you'll need to upload a source bundle.
+  - If you want to deploy a worker application that processes periodic background tasks, your application source bundle must also include a __cron.yaml__ file
+
+
 ### Customizing Elastic Beanstalk Env
 
 - You can customize EBstalk env using Elastic Beanstalk configuration files e.g. to install packages, create linux user/groups, run shell commands etc.)
-- filename with ext of .config written in json/yaml format and must be present in .ebextensions folder of root.
+- filename with ext of .config written in json/yaml format and must be present in __.ebextensions__ folder of root.
 
 ### EB and RDS instances
 

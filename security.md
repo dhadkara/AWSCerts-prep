@@ -80,6 +80,10 @@ __Identity Pools__ enable to create unique identities to obtain temporary limite
 
 ![Coginito Pools](images/cognito-pools.png)
 
+### Cognito Sync
+
 __Push Synchronization__ Cognito user Push Sync to send silent push notification of user data updates to multiple device type associated with user id. It levereges SNS internally.
 
-__Amazon Cognito Streams__ gives developers control and insight into their data stored in Amazon Cognito. Developers can now configure a Kinesis stream to receive events as data is updated and synchronized. Amazon Cognito can push each dataset change to a Kinesis stream you own in real time.
+__Amazon Cognito Streams__ gives developers control and insight into their data stored in Amazon Cognito. Developers can now configure a Kinesis stream to receive events as data is updated and synchronized. Amazon Cognito can push each dataset change to a Kinesis stream you own in real time. You need to select the Kinesis stream to publish to and an IAM role that grants Amazon Cognito permission to put events in the selected stream.
+
+__Amazon Cognito Events__ allows you to execute an AWS Lambda function in response to important events in Amazon Cognito. Amazon Cognito raises the Sync Trigger event when a dataset is synchronized. You can use the __Sync Trigger event__ to take an action when a user updates data. 
