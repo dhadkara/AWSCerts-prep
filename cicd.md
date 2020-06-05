@@ -85,6 +85,8 @@ You can override the default buildspec file name and location. For example, you 
 - Use a different buildspec file for different builds in the same repository, such as buildspec_debug.yml and buildspec_release.yml.
 - Store a buildspec file somewhere other than the root of your source directory, such as config/buildspec.yml or in an S3 bucket. The S3 bucket must be in the same AWS Region as your build project. 
 
+__CodeBuild VPC Access__ AWS CodeBuild cannot access resources in a VPC. To enable access, you must provide additional VPC-specific configuration information in your CodeBuild project configuration. This includes the VPC ID, the VPC subnet IDs, and the VPC security group IDs.
+
 #### Code Deploy
   Automates code deployments to any instance
   EC2 instances, on-premises instances, serverless Lambda functions, or Amazon ECS services
@@ -236,6 +238,10 @@ AWS X-Ray supports applications running on:
 - Linux system must run the X-Ray daemon. X-ray integration enabled for lambda. ECS/EKS runs x-ray container.
 - AWS X-Ray supports tracing for applications that are written in Node.js, Java, and .NET. Code must be instrumented to use the AWS X-Ray SDK.
 - The X-Ray SDK is installed in your application and forwards to the X-Ray daemon which forwards to the X-Ray API.You can then visualize what is happening in the X-Ray console.
+- The X-Ray SDK provides:
+  - __Interceptors__ to add to your code to trace incoming HTTP requests
+  - __Client handlers__ to instrument AWS SDK clients that your application uses to call other AWS services
+  - An __HTTP client__ to use to instrument calls to other internal and external HTTP web services
 
 __Key X-Ray Terminology__
 

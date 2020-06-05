@@ -65,6 +65,7 @@ __Confusted Deputy Problem__
     }
 }
 
+
 ```
 | __Identity Based Permission__ | __Resource Based Permission__  |
 |-------------------------------|--------------------------------|
@@ -80,6 +81,7 @@ __Managed policies__
 - Two Types
  1. AWS Managed - Maintained by AWS and can’t be modified
  2. Customer Managed - created and administered by you
+  - __Exam Tip:__ When you make changes to an IAM customer managed policy, and when AWS makes changes to an AWS managed policy, the changed policy doesn't overwrite the existing policy. Instead, IAM creates a new version of the managed policy
 
 __Inline policies__
 

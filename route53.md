@@ -6,16 +6,16 @@ Three main functions
 - Health Checking - Can monitor health of web server (domain or specific IP). Also cloudwatch alarms can be configured to if resource unavailable. DNS failover -Can be configured to route internet traffic away from unavailable resource
 
 #### Record Types
-__A(address) Record__ - is an IPv4 address in dotted decimal notation for e.g. 192.0.2.1
+- __A(address) Record__ - is an IPv4 address in dotted decimal notation for e.g. 192.0.2.1
 TTLs are setup if A record of DNS name is changing to 5 mins and default is 2 days
-__AAAA Format__ - is an IPv6 address in colon-separated hexadecimal format
-__CNAME Format__ ( can have another domain name to same ip as A record)
-is the same format as a domain name
-DNS protocol does not allow creation of a CNAME record for the top node of a DNS namespace, also known as the zone apex for e.g. the DNS name example.com registration, the zone apex is example.com, a CNAME record for example.com cannot be created, but CNAME records can be created for www.example.com, newproduct.example.com etc.
-If a CNAME record is created for a subdomain, any other resource record sets for that subdomain cannot be created for e.g. if a CNAME created for www.example.com, not other resource record sets for which the value of the Name field is www.example.com can be created
-__NS (Name Server) Format__
+- __AAAA Format__ - is an IPv6 address in colon-separated hexadecimal format
+- __CNAME Format__ ( can have another domain name to same ip as A record)
+ - is the same format as a domain name
+ - DNS protocol does not allow creation of a CNAME record for the top node of a DNS namespace, also known as the zone apex for e.g. the DNS name example.com registration, the zone apex is example.com, a CNAME record for example.com cannot be created, but CNAME records can be created for www.example.com, newproduct.example.com etc.
+ - If a CNAME record is created for a subdomain, any other resource record sets for that subdomain cannot be created for e.g. if a CNAME created for www.example.com, not other resource record sets for which the value of the Name field is www.example.com can be created
+- __NS (Name Server) Format__
 An NS record identifies the name servers for the hosted zone. The value for an NS record is the domain name of a name server.
-__SOA (Start of Authority) Format__
+- __SOA (Start of Authority) Format__
 SOA record provides information about a domain and the corresponding Amazon Route 53 hosted zone
 
 __Alias resource record sets__

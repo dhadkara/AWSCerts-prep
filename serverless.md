@@ -32,7 +32,7 @@
   - Temp Memory - /tmp folder 512MB  
   
   __Lambda with Kinesis__
-  - ou can use an AWS Lambda function to process records in an Amazon Kinesis data stream. With Kinesis, you can collect data from many sources and process them with multiple consumers.
+  - You can use an AWS Lambda function to process records in an Amazon Kinesis data stream. With Kinesis, you can collect data from many sources and process them with multiple consumers.
   - __If you have multiple applications that are reading records from the same stream, you can use Kinesis stream consumers instead of standard iterators. Consumers have dedicated read throughput so they don't have to compete with other consumers of the same data.__
 
   #### Layers
@@ -355,6 +355,7 @@ __API Throttling__
 - The plan uses API keys to identify API clients and meters access to the associated API stages for each key.
 - It also lets you configure throttling limits and quota limits that are enforced on individual client API keys.
 
+----------------------------
 ### Athena
 
 - An interactive query service that makes it easy to analyze data directly on S3 using __Standard SQL__

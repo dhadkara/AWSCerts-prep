@@ -8,14 +8,17 @@ AWS Elastic Beanstalk is a higher level service which allows you to quickly depl
 ![Deployment Methods](images/eb-deployment.png)
 
 ### Application
-- __Application Version Lifecycle Policy__ Each time you upload a new version of your application with the Elastic Beanstalk console or the EB CLI, Elastic Beanstalk creates an application version.You can avoid hitting the quota by applying an application version lifecycle policy to your applications.
 - __Application source bundle__ 
   - When you use the AWS Elastic Beanstalk console to deploy a new application or an application version, you'll need to upload a source bundle.
   - If you want to deploy a worker application that processes periodic background tasks, your application source bundle must also include a __cron.yaml__ file
-  -  __Environment Manifest file__ AWS Elastic Beanstalk lets you link your environments to share information between components that depend on one another.Define links to other environments in an environment manifest, a YAML formatted file named __env.yaml__ in the root of your application source. 
+- __Application Version Lifecycle Policy__ Each time you upload a new version of your application with the Elastic Beanstalk console or the EB CLI, Elastic Beanstalk creates an application version.You can avoid hitting the quota by applying an application version lifecycle policy to your applications.
+
+  
 
 ### Enviroment
+
 AWS Elastic Beanstalk makes it easy to create new environments for your application. You can create and manage separate environments for development, testing, and production use, and you can deploy any version of your application to any environment.
+-  __Environment Manifest file__ AWS Elastic Beanstalk lets you link your environments to share information between components that depend on one another. Define links to other environments in an environment manifest, a YAML formatted file named __env.yaml__ in the root of your application source. 
 
 ### Customizing Elastic Beanstalk Env
 
