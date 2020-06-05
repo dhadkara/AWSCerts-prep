@@ -72,6 +72,10 @@ __Local secondary index (LSI)__ are indexes that has the same partition key as t
     - Reduce page size
     - Isolate scan operations (Use shadow table)
   - Parallel Scans - processes a large table of historical data can perform a parallel scan much faster than a sequential one. Although parallel scans can be beneficial, they can place a heavy demand on provisioned throughput.
+  - You can Query any table or secondary index, provided that it has a composite primary key (partition key and sort key). Query operations consume read capacity units. You can specify the __ReturnConsumedCapacity__ parameter in a Query request.
+    - *NONE* — No consumed capacity data is returned. (This is the default.)
+    - *TOTAL* — The response includes the aggregate number of read capacity units consumed.
+    - *INDEXES* — The response shows the aggregate number of read capacity units consumed, together with the consumed capacity for each table and index that was accessed.
 
 ### Encryption
 

@@ -18,6 +18,8 @@ Continuous Deployment/Delivery
   - Manages updates from multiple users
   - Version controlled
 
+__Exam Tip:__ The simplest way to set up connections to AWS CodeCommit repositories is to configure Git credentials for CodeCommit in the IAM console, and then use those credentials for HTTPS connections.
+
 #### Code Build
   - Compiles code, run tests, produce packages
   - buildspec.yaml
@@ -242,6 +244,8 @@ __Key X-Ray Terminology__
 - Subsegments: Subsegments provide more granular timing information and details about downstream calls that your application made to fulfill the original request.
 - Annotations: An X-Ray annotation is system-defined or user-defined data associated with a segment. System-defined annotations include data added to the segment by AWS services, whereas user-defined annotations are metadata added to a segment by a developer
 - Sampling: To provide a performant and cost-effective experience, X-Ray does not collect data for every request that is sent to an application. Instead, it collects data for a statistically significant number of requests.
+  - Default rule : 1 req/sec & 5% of additional request/host
+  - Sampling rule: *Reservior Rate + Fixed Rate% * [(Total requests - Reservior Rate)]*
 - Metadata: Key / value pairs, not indexed and not used for searching.
 
 __Tip: Remember that annotations can be used for adding system or user-defined data to segments and subsegments that you want to index for search. Metadata is not indexed and cannot be used for searching.__

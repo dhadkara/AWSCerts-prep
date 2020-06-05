@@ -28,6 +28,8 @@ Logs Groups will keep the logs data __indefinately__ unless you change it. You c
   __ALARM__—The metric is outside of the defined threshold
   __INSUFFICIENT_DATA__—Alarm has just started, the metric is not available, or not enough data is available for the metric to determine the alarm state
 
+- We are excited to announce that CloudWatch now supports __High-Resolution Custom Metrics and Alarms__, enabling you to monitor custom applications and infrastructure in near real-time, down to per-second resolution. Using the existing __PutMetricData API__, you can now publish Custom Metrics down to 1-second resolution. 
+
 -----------------------
 ## CloudTrail
 - CloudTrail provides visibility into user activity by recording actions taken on your account. API history enables security analysis, resource change tracking, and compliance auditing.

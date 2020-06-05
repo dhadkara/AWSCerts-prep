@@ -10,6 +10,7 @@ Highly available distributed queue system that provides fault tolerant, loosely 
   - Visibility Time Out max is 12hrs
 - Message will be processed at least once guarantee
 - __Long Polling__ is basically SQS will not respond untill there is a message in a queue thus save the cost. To enable long polling set value of "ReceiveMessageWaitTimeSeconds" to greater than 0 and less than 20 sec.
+- __Message Timers__ let you specify an initial invisibility period for a message added to a queue.
 - __You can configure an access policy that allows anonymous users to access a message queue.__
 - __Amazon SQS is PCI DSS Level 1 certified and HIPAA eligible.__
 
