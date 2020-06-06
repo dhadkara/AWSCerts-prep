@@ -110,11 +110,6 @@ Content-type: application/json
   - Lambda function can be configured to be triggered in response to CloudFront requests
   - Lambda@Edge only supports __Node.js and Python__ for global invocation by CloudFront events at this time
 
--------------
-### SAM (Serverless Application Model)
-
-A serverless application is a combination of Lambda functions, event sources, and other resources that work together to perform tasks. Note that a serverless application is more than just a Lambda function—it can include additional resources such as APIs, databases, and event source mappings.
-
 #### AWS Lambda function metrics
 
 When your function finishes processing an event, Lambda sends metrics about the invocation to Amazon CloudWatch.
@@ -140,6 +135,11 @@ __Concurrency metrics__ Lambda reports concurrency metrics as an aggregate count
 
 #### AWS Mobile SDK with Lambda
 You upload the code you want AWS Lambda to execute and then invoke it from your mobile app using the AWS Lambda SDK included in the AWS Mobile SDK. You can make both direct (synchronous) calls to retrieve or check data in real time as well as asynchronous calls. You can also define a custom API using Amazon API Gateway and invoke your Lambda functions through any REST compatible client.
+
+-------------
+### SAM (Serverless Application Model)
+
+A serverless application is a combination of Lambda functions, event sources, and other resources that work together to perform tasks. Note that a serverless application is more than just a Lambda function—it can include additional resources such as APIs, databases, and event source mappings.
 
 #### SAM Template Specifications
 
