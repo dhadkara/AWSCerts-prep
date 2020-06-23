@@ -23,6 +23,12 @@ AWS Cert Exam Notes and Tips
 - [Monitoring](monitoring.md#section)
 - [Kinesis](kinesis.md#section)
 
+# AWS SysOps Associate Curriculam 
+
+- https://jayendrapatil.com/aws-certified-sysops-administrator-associate-soa-c01-exam-learning-path/#AWS_Certified_SysOps_Administrator_Associate_SOA-C01_Exam_Contents
+
+- [Notes](SysOps/notes.md#section)
+
 ## Generic
 
 ### SSH into EC2 terminal
