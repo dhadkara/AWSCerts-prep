@@ -27,7 +27,7 @@ AWS Cert Exam Notes and Tips
 
 - https://jayendrapatil.com/aws-certified-sysops-administrator-associate-soa-c01-exam-learning-path/#AWS_Certified_SysOps_Administrator_Associate_SOA-C01_Exam_Contents
 
-- [Notes](SysOps/notes.md#section)
+- [Additional Notes](SysOps/notes.md#section)
 
 ## Generic
 
