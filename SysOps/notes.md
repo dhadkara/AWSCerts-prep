@@ -1,10 +1,17 @@
 ## Monitoring and Reporting
 
 ### CloudWatch and CloudTrail
+
 - Custom Metrics
     - https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/put-metric-data.html
+- CloudTrail logs are encrypted by default
+
+### ELB Monitoring
+
 - Access Logs for Your Classic Load Balancer
     - https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/access-log-collection.html
+- Request tracing for ALB
+    - https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-request-tracing.html
 
 ### EBS Monitoring
 
@@ -15,7 +22,7 @@
 
 ### Elasticache Monitoring
 
-- https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheMetrics.WhichShouldIMonitor.html
+- https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheMetrics.WhichShouldIMonitor.html
 
 ### AWS Config
 
@@ -31,7 +38,6 @@
 - https://aws.amazon.com/blogs/aws/trusted-advisor-console-basic/
 
 ### AWS Resource Group
-
 
 
 ### Health Dashboards
