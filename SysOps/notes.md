@@ -46,7 +46,7 @@
 
 ## High Availability - 8%
 
-## Deployment and Provisioning - 14$
+## Deployment and Provisioning - 14%
 
 ## Storage and Data Management - 12%
 
@@ -68,10 +68,20 @@
 - https://docs.aws.amazon.com/athena/latest/ug/partitions.html
 - https://docs.aws.amazon.com/athena/latest/ug/columnar-storage.html
 
-## Security and Compliance - 18$
+## Security and Compliance - 18%
 
 ### AWS Inspector
 
-## Networking - 14$
+## Networking - 14%
+
+### VPC
+
+- [vpc](../vpc.md#section)
+- https://aws.amazon.com/about-aws/whats-new/2019/03/announcing-multi-account-support-for-direct-connect-gateway/
+
 
 ## Automation and Optimization -12%
+
+### Elastic Beanstalk
+
+- - [elastic beanstalk](../eb.md#section)

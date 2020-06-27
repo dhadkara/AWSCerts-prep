@@ -27,4 +27,8 @@ Network can be sub-divided into subnets inside an org. CIDR block convention to 
 Number of subnets be based on additional bits. If you need 4  means 2^2 bits=4
 If you need 8 means 2^3bits = 8 and so forth 
 
+__Easy to Calculate Subnet IPs__ 
+If /28 then 32 -28 = 4 --> 2^4 = 16 -5(AWS reserved ips) = 11  ## This will be smallest cidr for subnet
+If /24 then 32 -24 = 8 --> 2^8 = 256 -5(AWS reserved ips) = 251 
+
 Each subnet in VPC must be associated with a route table however multiple subnets can be associated to a single route table.
