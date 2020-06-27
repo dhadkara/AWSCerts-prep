@@ -70,7 +70,20 @@
 
 ## Security and Compliance - 18%
 
+### IAM
+- [iam](../iam.md#section)
+
 ### AWS Inspector
+- https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html
+
+### AWS GuardDuty
+- https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html
+
+### AWS WAF vs Shield vs Firewall Manager
+- https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html
+
+### AWS Artifact
+- https://docs.aws.amazon.com/artifact/latest/ug/what-is-aws-artifact.html
 
 ## Networking - 14%
 
@@ -78,6 +91,7 @@
 
 - [vpc](../vpc.md#section)
 - https://aws.amazon.com/about-aws/whats-new/2019/03/announcing-multi-account-support-for-direct-connect-gateway/
+- https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html
 
 
 ## Automation and Optimization -12%
