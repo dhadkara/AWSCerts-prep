@@ -46,9 +46,25 @@
 
 ## High Availability - 8%
 
+- https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html
+- https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html
+
 ## Deployment and Provisioning - 14%
 
+### EC2
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html
+
+### Auto Scaling
+- https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html
+
+### Load Balancers
+- https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-conn-drain.html
+- https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-delete.html
+- https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html
+
 ## Storage and Data Management - 12%
+
+- https://docs.aws.amazon.com/AmazonS3/latest/dev/DataDurability.html
 
 ### S3
 - S3 MFA Delete
