@@ -5,11 +5,15 @@
 - Custom Metrics
     - https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/put-metric-data.html
 - CloudTrail logs are encrypted by default
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html
+- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html
 
 ### ELB Monitoring
 
 - Access Logs for Your Classic Load Balancer
     - https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/access-log-collection.html
+- Access Logs for Your ALB
+    - https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
 - Request tracing for ALB
     - https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-request-tracing.html
 
@@ -48,14 +52,21 @@
 
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html
+- https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html
 
 ## Deployment and Provisioning - 14%
 
 ### EC2
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-instance-store.html
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html
 
 ### Auto Scaling
+- https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html
 - https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html
+- https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html
+- https://docs.aws.amazon.com/cli/latest/reference/autoscaling/update-auto-scaling-group.html
 
 ### Load Balancers
 - https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-conn-drain.html
@@ -63,8 +74,6 @@
 - https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html
 
 ## Storage and Data Management - 12%
-
-- https://docs.aws.amazon.com/AmazonS3/latest/dev/DataDurability.html
 
 ### S3
 - S3 MFA Delete
@@ -74,7 +83,9 @@
 - Custom Access Log Information
  
  *You can include custom information to be stored in the access log record for a request by adding a custom query-string parameter to the URL for the request. Amazon S3 ignores query-string parameters that begin with "x-", but includes those parameters in the access log record for the request, as part of the Request-URI field of the log record. For example, a GET request for "s3.amazonaws.com/awsexamplebucket1/photos/2019/08/puppy.jpg?x-user=johndoe" works the same as the same request for "s3.amazonaws.com/awsexamplebucket1/photos/2019/08/puppy.jpg", except that the "x-user=johndoe" string is included in the Request-URI field for the associated log record. This functionality is available in the REST interface only.*
- 
+ - https://docs.aws.amazon.com/AmazonS3/latest/dev/DataDurability.html
+ - https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html
+
 - S3 Glacier
     - https://docs.aws.amazon.com/amazonglacier/latest/dev/access-control-resource-based.html
     - https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-how-to-api.html
@@ -108,6 +119,7 @@
 
 - [vpc](../vpc.md#section)
 - https://aws.amazon.com/about-aws/whats-new/2019/03/announcing-multi-account-support-for-direct-connect-gateway/
+- https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario2.html
 - https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html
 
 
