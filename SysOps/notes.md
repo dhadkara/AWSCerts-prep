@@ -5,6 +5,8 @@
 - Custom Metrics
     - https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/put-metric-data.html
     - https://aws.amazon.com/blogs/devops/new-how-to-better-monitor-your-custom-application-metrics-using-amazon-cloudwatch-agent/
+- Billing Alerts
+    - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html
 - CloudTrail logs are encrypted by default
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html
 - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html
@@ -64,6 +66,7 @@
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html
+- https://aws.amazon.com/about-aws/whats-new/2018/09/amazon-aurora-databases-support-up-to-five-cross-region-read-replicas/
 - https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html
 
 ### AWS Support Plans
@@ -77,6 +80,9 @@
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-instance-store.html
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode.html
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html
+- https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-instancelaunchfailure.html
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html
 
 ### Auto Scaling
 - https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html
@@ -103,6 +109,8 @@
  - https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html
  - https://aws.amazon.com/blogs/aws/amazon-s3-block-public-access-another-layer-of-protection-for-your-accounts-and-buckets/
  - https://aws.amazon.com/blogs/security/iam-policies-and-bucket-policies-and-acls-oh-my-controlling-access-to-s3-resources/
+ - https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html
+ - https://aws.amazon.com/blogs/security/control-access-to-aws-resources-by-using-the-aws-organization-of-iam-principals/
  - https://aws.amazon.com/premiumsupport/knowledge-center/s3-large-file-encryption-kms-key/
  - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html#private-content-granting-permissions-to-oai
 
@@ -122,6 +130,7 @@
 ### IAM
 - [iam](../iam.md#section)
 - https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/
+- https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html
 
 ### AWS Inspector
 - https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html
@@ -155,6 +164,7 @@
 
 ### Route 53
 - https://aws.amazon.com/premiumsupport/knowledge-center/fail-over-s3-r53/
+- https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html
 
 ## Automation and Optimization -12%
 
