@@ -4,6 +4,7 @@
 
 - Custom Metrics
     - https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/put-metric-data.html
+    - https://aws.amazon.com/blogs/devops/new-how-to-better-monitor-your-custom-application-metrics-using-amazon-cloudwatch-agent/
 - CloudTrail logs are encrypted by default
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html
 - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html
@@ -101,13 +102,18 @@
  - https://docs.aws.amazon.com/AmazonS3/latest/dev/DataDurability.html
  - https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html
  - https://aws.amazon.com/blogs/aws/amazon-s3-block-public-access-another-layer-of-protection-for-your-accounts-and-buckets/
+ - https://aws.amazon.com/blogs/security/iam-policies-and-bucket-policies-and-acls-oh-my-controlling-access-to-s3-resources/
+ - https://aws.amazon.com/premiumsupport/knowledge-center/s3-large-file-encryption-kms-key/
+ - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html#private-content-granting-permissions-to-oai
 
 - S3 Glacier
     - https://docs.aws.amazon.com/amazonglacier/latest/dev/access-control-resource-based.html
     - https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-how-to-api.html
 
-### Athena
+### EBS
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/raid-config.html
 
+### Athena
 - https://docs.aws.amazon.com/athena/latest/ug/partitions.html
 - https://docs.aws.amazon.com/athena/latest/ug/columnar-storage.html
 
@@ -119,6 +125,7 @@
 
 ### AWS Inspector
 - https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html
+- https://aws.amazon.com/blogs/security/amazon-inspector-assess-network-exposure-ec2-instances-aws-network-reachability-assessments/
 
 ### AWS GuardDuty
 - https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html
@@ -142,6 +149,9 @@
 - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-migrate-ipv6.html
 - https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html
 - https://docs.aws.amazon.com/streams/latest/dev/vpc.htmls
+
+### Direct Connect
+- https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html
 
 ### Route 53
 - https://aws.amazon.com/premiumsupport/knowledge-center/fail-over-s3-r53/
