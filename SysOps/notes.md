@@ -30,15 +30,19 @@
 
 ### AWS Config
 
-- https://docs.aws.amazon.com/config/latest/developerguide/iamrole-permissions.html - TODO
+- https://docs.aws.amazon.com/config/latest/developerguide/iamrole-permissions.html
 - https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html
 - https://docs.aws.amazon.com/config/latest/developerguide/viewing-the-aggregate-dashboard.html
+- https://docs.aws.amazon.com/config/latest/developerguide/authorize-aggregator-account-console.html
 - https://aws.amazon.com/config/pricing/
-- https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_develop-rules_getting-started.html - TODO
+- https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_develop-rules_getting-started.html 
 - https://aws.amazon.com/blogs/security/how-to-use-aws-config-to-monitor-for-and-respond-to-amazon-s3-buckets-allowing-public-access/
 
-### AWS Trusted Advisor
+### Systems Manager (SSM)
+- https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html
+- https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-ssm-docs.html
 
+### AWS Trusted Advisor
 - https://aws.amazon.com/blogs/aws/trusted-advisor-console-basic/
 
 ### Service Catalog
@@ -48,11 +52,21 @@
 - Service Health Dashboard (Overall AWS services)
 - Personal Health Dashboard (Your affected services)
 
+### Cost and Billing
+- https://docs.aws.amazon.com/cur/latest/userguide/detailed-billing-migrate.html
+- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/gs_monitor_estimated_charges_with_cloudwatch.html#gs_creating_billing_alarm
+- https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-default-reports.html#ce-ri-reports
+
+
 ## High Availability - 8%
 
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html
+- https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html
+
+### AWS Support Plans
+- https://aws.amazon.com/premiumsupport/plans/
 
 ## Deployment and Provisioning - 14%
 
@@ -61,6 +75,7 @@
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-instance-store.html
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode.html
 
 ### Auto Scaling
 - https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html
@@ -85,6 +100,7 @@
  *You can include custom information to be stored in the access log record for a request by adding a custom query-string parameter to the URL for the request. Amazon S3 ignores query-string parameters that begin with "x-", but includes those parameters in the access log record for the request, as part of the Request-URI field of the log record. For example, a GET request for "s3.amazonaws.com/awsexamplebucket1/photos/2019/08/puppy.jpg?x-user=johndoe" works the same as the same request for "s3.amazonaws.com/awsexamplebucket1/photos/2019/08/puppy.jpg", except that the "x-user=johndoe" string is included in the Request-URI field for the associated log record. This functionality is available in the REST interface only.*
  - https://docs.aws.amazon.com/AmazonS3/latest/dev/DataDurability.html
  - https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html
+ - https://aws.amazon.com/blogs/aws/amazon-s3-block-public-access-another-layer-of-protection-for-your-accounts-and-buckets/
 
 - S3 Glacier
     - https://docs.aws.amazon.com/amazonglacier/latest/dev/access-control-resource-based.html
@@ -106,6 +122,8 @@
 
 ### AWS GuardDuty
 - https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html
+- https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_upload_lists.html
+- GuardDuty rules can't be disabled or deleted but can be auto archived so furthur findings from rule will not be displayed on console or send to CloudWatch events.
 
 ### AWS WAF vs Shield vs Firewall Manager
 - https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html
@@ -121,7 +139,12 @@
 - https://aws.amazon.com/about-aws/whats-new/2019/03/announcing-multi-account-support-for-direct-connect-gateway/
 - https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario2.html
 - https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html
+- https://docs.aws.amazon.com/vpc/latest/userguide/vpc-migrate-ipv6.html
+- https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html
+- https://docs.aws.amazon.com/streams/latest/dev/vpc.htmls
 
+### Route 53
+- https://aws.amazon.com/premiumsupport/knowledge-center/fail-over-s3-r53/
 
 ## Automation and Optimization -12%
 
