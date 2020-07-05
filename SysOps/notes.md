@@ -66,6 +66,7 @@
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html
 - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html
+- https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/SQLServer.Concepts.General.SSL.Using.html
 - https://aws.amazon.com/about-aws/whats-new/2018/09/amazon-aurora-databases-support-up-to-five-cross-region-read-replicas/
 - https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html
 
@@ -99,7 +100,7 @@
 
 ### S3
 - S3 MFA Delete
-    - https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMFADelete.html
+    - https://aws.amazon.com/blogs/security/securing-access-to-aws-using-mfa-part-3/
 - Access Logs
     - https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html
 - Custom Access Log Information
@@ -152,21 +153,24 @@
 ### VPC
 
 - [vpc](../vpc.md#section)
-- https://aws.amazon.com/about-aws/whats-new/2019/03/announcing-multi-account-support-for-direct-connect-gateway/
 - https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario2.html
 - https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html
 - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-migrate-ipv6.html
 - https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html
-- https://docs.aws.amazon.com/streams/latest/dev/vpc.htmls
+- https://docs.aws.amazon.com/streams/latest/dev/vpc.html
 
 ### Direct Connect
 - https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html
+- https://aws.amazon.com/about-aws/whats-new/2019/03/announcing-multi-account-support-for-direct-connect-gateway/
 
 ### Route 53
 - https://aws.amazon.com/premiumsupport/knowledge-center/fail-over-s3-r53/
 - https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html
 
 ## Automation and Optimization -12%
+
+### CloudFormation
+- https://aws.amazon.com/about-aws/whats-new/2018/11/aws-cloudformation-now-supports-drift-detection/
 
 ### Elastic Beanstalk
 
